@@ -1,0 +1,37 @@
+*{
+    margin:0;
+    padding:0;
+}
+.container {
+    background-color: #242424;
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    overflow:hidden;
+}
+
+.lienzo {
+    background-color:#fff;
+    width: 900px;
+    margin:5px 0px 0px 5px;
+    height: 500px;
+    position:absolute;
+
+}
+.panel{
+        background-color:rgb(94, 94, 94);
+        width: 400px;
+        margin:5px 25px 0px 0px;
+        height: 500px;
+        position:absolute;
+        right:0px;
+}
+.time_line{
+    background-color: rgb(90, 90, 90);
+    position:absolute;
+    bottom:0px;
+    left:50%;
+    transform:translate(-50%,0%);
+    width:98%;
+    height:140px;
+}
