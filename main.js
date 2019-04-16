@@ -13,11 +13,10 @@ function mostrar() {
         reader.readAsDataURL(archivo);
         reader.onloadend = function () {
             
-            lienzo.innerHTML += `<img id="${total_imagenes}" class="img" width="100px" src="${reader.result}" onclick="watch(this.id)">`
+            lienzo.innerHTML += `<img id="${total_imagenes}" style="left:0px;top:0px;" class="img" width="100px" src="${reader.result}" onclick="watch(this.id)">`
             total_de_capas[total_imagenes] = total_imagenes
             console.log(total_de_capas)
             total_imagenes++
-            console.log(archivo)
 
         }
     } else {
@@ -31,23 +30,67 @@ function mostrar() {
 
 var img_puntual
 var id_seleccionador = document.getElementById("id_imagen")
+var rotacion = document.getElementById("r"),
+    alto = document.getElementById("al"),
+    ancho = document.getElementById("an"),
+    x = document.getElementById("x"),
+    y = document.getElementById("y"),
+    opacidad = document.getElementById("o")
 
 function watch(id){
 
+    var eje_x = document.getElementById("x")
     
     if(document.getElementById(id) == img_puntual){
         img_puntual.className = "img"
         img_puntual = 0
         id_seleccionador.value = ""
+        eje_x.value = ""
+
+        rotacion.style.display = "none"
+        alto.style.display = "none"
+        ancho.style.display = "none"
+        x.style.display = "none"
+        y.style.display = "none"
+        opacidad.style.display = "none"
+
     }else{
         id_seleccionador.value = id
+
+        var img_watch = document.getElementById(id)
+        var style_x = img_watch.style.left
+
         if(img_puntual){
+
             img_puntual.className = "img"
-            img_puntual = document.getElementById(id)
-            document.getElementById(id).className = "img_watch"
+            img_puntual = img_watch
+            img_watch.className = "img_watch"
+            
+            rotacion.style.display = "inline-block"
+            alto.style.display = "inline-block"
+            ancho.style.display = "inline-block"
+            x.style.display = "inline-block"
+            y.style.display = "inline-block"
+            opacidad.style.display = "inline-block"
+            
+            eje_x.value = (style_x = style_x.replace("px",""))
+            console.log(style_x)
+
         }else{
-            img_puntual = document.getElementById(id)
-            document.getElementById(id).className = "img_watch"
+
+            img_puntual = img_watch
+            img_watch.className = "img_watch"
+            
+            rotacion.style.display = "inline-block"
+            alto.style.display = "inline-block"
+            ancho.style.display = "inline-block"
+            x.style.display = "inline-block"
+            y.style.display = "inline-block"
+            opacidad.style.display = "inline-block"
+            
+            eje_x.value = (style_x = style_x.replace("px",""))
+            console.log(style_x)
+
         }
     }
 console.log(id)

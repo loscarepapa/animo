@@ -14,13 +14,13 @@
 
         </div>
         <div class="panel" id="panel">
-            <input id="r" type="text" placeholder="Rotacion">
-            <input id="al" type="text" placeholder="Alto">
-            <input id="an" type="text" placeholder="Ancho">
-            <input id="x" type="text" placeholder="X --">
-            <input id="y" type="text" placeholder="Y |">
-            <input id="o" type="text" placeholder="Opacidad">
-            <input type="text" id="id_imagen" placeholder="Id de la imagen" value="" onchange="change_id(this.value)"  name="" id="">
+            <input id="r" style="display:none;" type="number" onchange="roracion(this.value)" value="" placeholder="Rotacion">
+            <input id="al" style="display:none;" type="number" onchange="alto(this.value)" value="" placeholder="Alto">
+            <input id="an" style="display:none;" type="number" onchange="ancho(this.value)" value="" placeholder="Ancho">
+            <input id="x" style="display:none;" type="number" onchange="eje_x(this.value)" value="" placeholder="X --">
+            <input id="y" style="display:none;" type="number" onchange="eje_y(this.value)" value="" placeholder="Y |">
+            <input id="o" style="display:none;" type="number" onchange="opacidad(this.value)" value="" placeholder="Opacidad">
+            <input type="number" id="id_imagen" placeholder="Id de la imagen" value="" onchange="change_id(this.value)"  name="" id="">
             <input type="file" id="file" accept="image/*" onchange="mostrar()" />
             <br>
         </div>

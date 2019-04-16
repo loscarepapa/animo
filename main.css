@@ -36,10 +36,10 @@
     width:98%;
     height:140px;
 }
-/* .img{
+.img{
     position:absolute;
-} */
+}
 .img_watch {
-    /* position:absolute; */
+    position:absolute;
     background: rgba(60, 255, 0, 0.699)
 }
