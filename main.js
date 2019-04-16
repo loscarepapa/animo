@@ -18,40 +18,28 @@ function mostrar() {
             console.log(total_de_capas)
             total_imagenes++
             console.log(archivo)
+
         }
     } else {
         console.log("Hubo un error")
     }
+    if(img_puntual){
+        img_puntual.className = "img"
+        img_puntual = 0
+    }
 }
 
-var img_anterior, imagen_actual
+var img_puntual
 
 function watch(id){
-    imagen_actual  = document.getElementById(id)
-    
-    if(img_anterior){
-        if(imagen_actual.className === "img"){
-            imagen_actual.className = "img_watch"
-        }else{
-            imagen_actual.className = "img"
-        }
 
-        img_anterior.className = "img"
-        img_anterior = 0;
-        console.log(img_anterior)
-        console.log(imagen_actual)
-        
+    if(img_puntual){
+        img_puntual.className = "img"
+        img_puntual = document.getElementById(id)
+        document.getElementById(id).className = "img_watch"
     }else{
-        if (imagen_actual.className === "img") {
-            imagen_actual.className = "img_watch"
-        } else {
-            imagen_actual.className = "img"
-        }
-        
-        img_anterior = document.getElementById(id)
-        console.log(img_anterior)
-        console.log(imagen_actual)
-
+        img_puntual = document.getElementById(id)
+        document.getElementById(id).className = "img_watch"
     }
-// console.log(id)
+console.log(id)
 }
