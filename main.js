@@ -30,13 +30,17 @@ function mostrar() {
 }
 
 var img_puntual
+var id_seleccionador = document.getElementById("id_imagen")
 
 function watch(id){
 
+    
     if(document.getElementById(id) == img_puntual){
         img_puntual.className = "img"
         img_puntual = 0
+        id_seleccionador.value = ""
     }else{
+        id_seleccionador.value = id
         if(img_puntual){
             img_puntual.className = "img"
             img_puntual = document.getElementById(id)
@@ -49,3 +53,8 @@ function watch(id){
 console.log(id)
 // console.log(img_puntual)
 }
+
+function change_id (id){
+    watch(id)
+}
+
