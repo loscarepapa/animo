@@ -13,8 +13,8 @@ function mostrar() {
         reader.readAsDataURL(archivo);
         reader.onloadend = function () {
             
-            lienzo.innerHTML += `<img id="${total_imagenes}" src="${reader.result}">`
-            total_de_capas[total_imagenes]
+            lienzo.innerHTML += `<img id="${total_imagenes}" class="img" width="100px" src="${reader.result}" onclick="watch(this.id)">`
+            total_de_capas[total_imagenes] = total_imagenes
             console.log(total_de_capas)
             total_imagenes++
             console.log(archivo)
@@ -24,3 +24,34 @@ function mostrar() {
     }
 }
 
+var img_anterior, imagen_actual
+
+function watch(id){
+    imagen_actual  = document.getElementById(id)
+    
+    if(img_anterior){
+        if(imagen_actual.className === "img"){
+            imagen_actual.className = "img_watch"
+        }else{
+            imagen_actual.className = "img"
+        }
+
+        img_anterior.className = "img"
+        img_anterior = 0;
+        console.log(img_anterior)
+        console.log(imagen_actual)
+        
+    }else{
+        if (imagen_actual.className === "img") {
+            imagen_actual.className = "img_watch"
+        } else {
+            imagen_actual.className = "img"
+        }
+        
+        img_anterior = document.getElementById(id)
+        console.log(img_anterior)
+        console.log(imagen_actual)
+
+    }
+// console.log(id)
+}
