@@ -33,13 +33,19 @@ var img_puntual
 
 function watch(id){
 
-    if(img_puntual){
+    if(document.getElementById(id) == img_puntual){
         img_puntual.className = "img"
-        img_puntual = document.getElementById(id)
-        document.getElementById(id).className = "img_watch"
+        img_puntual = 0
     }else{
-        img_puntual = document.getElementById(id)
-        document.getElementById(id).className = "img_watch"
+        if(img_puntual){
+            img_puntual.className = "img"
+            img_puntual = document.getElementById(id)
+            document.getElementById(id).className = "img_watch"
+        }else{
+            img_puntual = document.getElementById(id)
+            document.getElementById(id).className = "img_watch"
+        }
     }
 console.log(id)
+// console.log(img_puntual)
 }
