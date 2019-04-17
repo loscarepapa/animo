@@ -98,11 +98,11 @@ function watch(id){
             opacidad.style.display = "inline-block"
             
             rotacion.value = (style_rotate = style_rotate.repalce("rotateZ(", ""), style_rotate.replace("deg)", ""))
-            alto.value = ""
-            ancho.value = ""
+            // alto.value = ""
+            // ancho.value = ""
             x.value = (style_x = style_x.replace("px",""))
             y.value = (style_y = style_y.replace("px", ""))
-            opacidad.value = ""
+            // opacidad.value = ""
             // console.log(style_x)
 
         }else{
@@ -118,11 +118,11 @@ function watch(id){
             opacidad.style.display = "inline-block"
             
             rotacion.value = (style_rotate = style_rotate.replace("rotateZ(", ""), style_rotate.replace("deg)", ""))
-            alto.value = ""
-            ancho.value = ""
+            // alto.value = ""
+            // ancho.value = ""
             x.value = (style_x = style_x.replace("px", ""))
             y.value = (style_y = style_y.replace("px", ""))
-            opacidad.value = ""
+            // opacidad.value = ""
             // console.log(style_x)
 
         }
