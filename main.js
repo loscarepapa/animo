@@ -68,11 +68,11 @@ function watch(id){
         opacidad.style.display = "none"
 
         rotacion.value = ""
-        alto.value = ""
-        ancho.value = ""
+        // alto.value = ""
+        // ancho.value = ""
         x.value = ""
         y.value = ""
-        opacidad.value = ""
+        // opacidad.value = ""
         
     }else{
         id_seleccionador.value = id
@@ -97,7 +97,7 @@ function watch(id){
             y.style.display = "inline-block"
             opacidad.style.display = "inline-block"
             
-            rotacion.value = (style_rotate = style_rotate.repalce("rotateZ(", ""), style_rotate.replace("deg)", ""))
+            rotacion.value = (style_rotate = style_rotate.replace("rotateZ(", ""), style_rotate.replace("deg)", ""))
             // alto.value = ""
             // ancho.value = ""
             x.value = (style_x = style_x.replace("px",""))
@@ -146,7 +146,7 @@ function attr(value, id) {
             break;
 
         case "r":
-        img_puntual.style.transform = `rotateZ(${value}deg)`    
+        img_puntual.style.transform = `rotateZ(${value}deg)`  
             break;
         default:
             break;
