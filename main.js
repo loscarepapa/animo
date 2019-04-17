@@ -13,7 +13,7 @@ function mostrar() {
         reader.readAsDataURL(archivo);
         reader.onloadend = function () {
             
-            lienzo.innerHTML += `<img id="${total_imagenes}" style="left:0px;top:0px;" class="img" width="100px" src="${reader.result}" onclick="watch(this.id)">`
+            lienzo.innerHTML += `<img id="${total_imagenes}" style="left:0px;top:0px;transform:rotateZ(0deg);" class="img" width="100px" src="${reader.result}" onclick="watch(this.id)">`
             total_de_capas[total_imagenes] = total_imagenes
             console.log(total_de_capas)
             total_imagenes++
@@ -30,8 +30,13 @@ function mostrar() {
         x.style.display = "none"
         y.style.display = "none"
         opacidad.style.display = "none"
+        
+        rotacion.value = ""
+        alto.value = ""
+        ancho.value = ""
         x.value = ""
         y.value = ""
+        opacidad.value = ""
 
         img_puntual.className = "img"
         img_puntual = 0
@@ -61,13 +66,20 @@ function watch(id){
         x.style.display = "none"
         y.style.display = "none"
         opacidad.style.display = "none"
+
+        rotacion.value = ""
+        alto.value = ""
+        ancho.value = ""
         x.value = ""
         y.value = ""
+        opacidad.value = ""
         
     }else{
         id_seleccionador.value = id
 
         var img_watch = document.getElementById(id)
+
+        var style_rotate = img_watch.style.transform
         var style_x = img_watch.style.left
         var style_y = img_watch.style.top
 
@@ -85,8 +97,12 @@ function watch(id){
             y.style.display = "inline-block"
             opacidad.style.display = "inline-block"
             
+            rotacion.value = (style_rotate = style_rotate.repalce("rotateZ(", ""), style_rotate.replace("deg)", ""))
+            alto.value = ""
+            ancho.value = ""
             x.value = (style_x = style_x.replace("px",""))
             y.value = (style_y = style_y.replace("px", ""))
+            opacidad.value = ""
             // console.log(style_x)
 
         }else{
@@ -101,13 +117,17 @@ function watch(id){
             y.style.display = "inline-block"
             opacidad.style.display = "inline-block"
             
-            x.value = (style_x = style_x.replace("px",""))
+            rotacion.value = (style_rotate = style_rotate.replace("rotateZ(", ""), style_rotate.replace("deg)", ""))
+            alto.value = ""
+            ancho.value = ""
+            x.value = (style_x = style_x.replace("px", ""))
             y.value = (style_y = style_y.replace("px", ""))
+            opacidad.value = ""
             // console.log(style_x)
 
         }
     }
-console.log(id)
+console.log(img_watch.style.transform)
 // console.log(img_puntual)
 }
 
@@ -120,8 +140,14 @@ function attr(value, id) {
         case "x":
         img_puntual.style.left = `${value}px`
             break;
+
         case "y":
         img_puntual.style.top = `${value}px`
+            break;
+
+        case "r":
+        img_puntual.style.transform = `rotateZ(${value}deg)`    
+            break;
         default:
             break;
     }
