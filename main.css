@@ -46,7 +46,7 @@
 .name_attribute{
     color: #fff;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin:0px 5px;
+    margin:0px 0px;
     text-align: center;
 }
 .input{
@@ -54,8 +54,32 @@
     border:none;
     padding: 1px 10px;
     border-radius:5px;
-    margin: 5px;
+    margin: px;
     width: 50px;
-    position:absolute;
+    /* position:absolute; */
     right:0px;
+}
+.table{
+    background: rgba(0, 0, 0, 0.329);
+    border:solid 2px rgba(0, 0, 0, 0.37);
+    margin:3px;
+    float:right;
+    text-align: center;
+    
+}
+label {
+    padding: 10px;
+    background: rgb(123, 255, 0);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: table;
+    cursor:pointer;
+    border-radius: 30px;
+    margin: 10px 0px 5px 40px;
+    color: rgb(0, 0, 0);
+}
+
+
+
+input[type="file"] {
+    display: none;
 }

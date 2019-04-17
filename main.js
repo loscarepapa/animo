@@ -35,6 +35,7 @@ function mostrar() {
         zindex.style.display = "none"
         id_seleccionador.value = ""
         id_seleccionador.style.display = "none"
+        tabla.style.display = "none"
         
         rotacion.value = ""
         alto.value = ""
@@ -56,6 +57,7 @@ function mostrar() {
 
 var img_puntual
 var id_seleccionador = document.getElementById("id_imagen")
+var tabla = document.getElementById("tabla")
 var rotacion = document.getElementById("r"),
     alto = document.getElementById("al"),
     ancho = document.getElementById("an"),
@@ -71,6 +73,7 @@ function watch(id){
         img_puntual = 0
         id_seleccionador.value = ""
         id_seleccionador.style.display = "none"
+        tabla.style.display = "none"
         
         rotacion.style.display = "none"
         alto.style.display = "none"
@@ -112,6 +115,7 @@ function watch(id){
             img_puntual = img_watch
             img_watch.className = "img_watch"
             id_seleccionador.style.display = "inline-block"
+            tabla.style.display = "inline-block"
 
             rotacion.style.display = "inline-block"
             alto.style.display = "inline-block"
@@ -139,6 +143,7 @@ function watch(id){
             img_puntual = img_watch
             img_watch.className = "img_watch"
             id_seleccionador.style.display = "inline-block"
+            tabla.style.display = "inline-block"
 
             rotacion.style.display = "inline-block"
             alto.style.display = "inline-block"
