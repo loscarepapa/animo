@@ -23,8 +23,19 @@ function mostrar() {
         console.log("Hubo un error")
     }
     if(img_puntual){
+        
+        rotacion.style.display = "none"
+        alto.style.display = "none"
+        ancho.style.display = "none"
+        x.style.display = "none"
+        y.style.display = "none"
+        opacidad.style.display = "none"
+        x.value = ""
+        y.value = ""
+
         img_puntual.className = "img"
         img_puntual = 0
+
     }
 }
 
@@ -38,27 +49,28 @@ var rotacion = document.getElementById("r"),
     opacidad = document.getElementById("o")
 
 function watch(id){
-
-    var eje_x = document.getElementById("x")
     
     if(document.getElementById(id) == img_puntual){
         img_puntual.className = "img"
         img_puntual = 0
         id_seleccionador.value = ""
-        eje_x.value = ""
-
+        
         rotacion.style.display = "none"
         alto.style.display = "none"
         ancho.style.display = "none"
         x.style.display = "none"
         y.style.display = "none"
         opacidad.style.display = "none"
-
+        x.value = ""
+        y.value = ""
+        
     }else{
         id_seleccionador.value = id
 
         var img_watch = document.getElementById(id)
         var style_x = img_watch.style.left
+        var style_y = img_watch.style.top
+
 
         if(img_puntual){
 
@@ -73,8 +85,9 @@ function watch(id){
             y.style.display = "inline-block"
             opacidad.style.display = "inline-block"
             
-            eje_x.value = (style_x = style_x.replace("px",""))
-            console.log(style_x)
+            x.value = (style_x = style_x.replace("px",""))
+            y.value = (style_y = style_y.replace("px", ""))
+            // console.log(style_x)
 
         }else{
 
@@ -88,8 +101,9 @@ function watch(id){
             y.style.display = "inline-block"
             opacidad.style.display = "inline-block"
             
-            eje_x.value = (style_x = style_x.replace("px",""))
-            console.log(style_x)
+            x.value = (style_x = style_x.replace("px",""))
+            y.value = (style_y = style_y.replace("px", ""))
+            // console.log(style_x)
 
         }
     }
@@ -97,7 +111,18 @@ console.log(id)
 // console.log(img_puntual)
 }
 
-function change_id (id){
+function change_id(id){
     watch(id)
 }
 
+function attr(value, id) {
+    switch (id) {
+        case "x":
+        img_puntual.style.left = `${value}px`
+            break;
+        case "y":
+        img_puntual.style.top = `${value}px`
+        default:
+            break;
+    }
+}
