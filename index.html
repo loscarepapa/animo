@@ -14,13 +14,31 @@
 
         </div>
         <div class="panel" id="panel">
-            <input id="r" style="display:none;" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Rotacion">
-            <input id="al" style="display:none;" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Alto">
-            <input id="an" style="display:none;" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Ancho">
-            <input id="x" style="display:none;" type="number" onchange="attr(this.value, this.id)" value="" placeholder="X --">
-            <input id="y" style="display:none;" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Y |">
-            <input id="o" style="display:none;" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Opacidad">
-            <input type="number" id="id_imagen" placeholder="Id de la imagen" value="" onchange="change_id(this.value)"  name="" id="">
+            
+            <p class="name_attribute" style="display:none;" id="title_attribute0">Rotacion</p>
+            <input id="r" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Rotacion">
+            
+            <p class="name_attribute" style="display:none;" id="title_attribute1"> <br> Alto</p>
+            <input id="al" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Alto">
+            
+            <p class="name_attribute" style="display:none;" id="title_attribute2"> <br> Ancho</p>
+            <input id="an" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Ancho">
+            
+            <p class="name_attribute" style="display:none;" id="title_attribute3"> <br> X</p>
+            <input id="x" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="X --">
+            
+            <p class="name_attribute" style="display:none;" id="title_attribute4"> <br> Y</p>
+            <input id="y" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Y |">
+            
+            <p class="name_attribute" style="display:none;" id="title_attribute5"> <br> Opacidad</p>
+            <input id="o" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Opacidad">
+
+            <p class="name_attribute" style="display:none;" id="title_attribute6"> <br> Z-index</p>
+            <input id="z" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Z-index">
+            
+            <p class="name_attribute" style="display:none;" id="title_attribute7"> <br> Id de la imagen</p>
+            <input type="number" id="id_imagen" class="input" style="display:none;" placeholder="Id de la imagen" value="" onchange="change_id(this.value)"  name="" id="">
+        
             <input type="file" id="file" accept="image/*" onchange="mostrar()" />
             <br>
         </div>
