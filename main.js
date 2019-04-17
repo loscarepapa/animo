@@ -13,7 +13,7 @@ function mostrar() {
         reader.readAsDataURL(archivo);
         reader.onloadend = function () {
             
-            lienzo.innerHTML += `<img id="${total_imagenes}" style="left:0px;top:0px;transform:rotateZ(0deg);" class="img" width="100px" src="${reader.result}" onclick="watch(this.id)">`
+            lienzo.innerHTML += `<img id="${total_imagenes}" style="left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;" class="img" width="100px" src="${reader.result}" onclick="watch(this.id)">`
             total_de_capas[total_imagenes] = total_imagenes
             console.log(total_de_capas)
             total_imagenes++
@@ -68,11 +68,11 @@ function watch(id){
         opacidad.style.display = "none"
 
         rotacion.value = ""
-        // alto.value = ""
-        // ancho.value = ""
+        alto.value = ""
+        ancho.value = ""
         x.value = ""
         y.value = ""
-        // opacidad.value = ""
+        opacidad.value = ""
         
     }else{
         id_seleccionador.value = id
@@ -80,8 +80,11 @@ function watch(id){
         var img_watch = document.getElementById(id)
 
         var style_rotate = img_watch.style.transform
+        var style_alto = img_watch.style.height
+        var style_ancho = img_watch.style.width
         var style_x = img_watch.style.left
         var style_y = img_watch.style.top
+        var style_opacidad = img_watch.style.opacity
 
 
         if(img_puntual){
@@ -98,11 +101,11 @@ function watch(id){
             opacidad.style.display = "inline-block"
             
             rotacion.value = (style_rotate = style_rotate.replace("rotateZ(", ""), style_rotate.replace("deg)", ""))
-            // alto.value = ""
-            // ancho.value = ""
+            alto.value = (style_alto = style_alto.replace("px",""))
+            ancho.value = (style_ancho = style_ancho.replace("px",""))
             x.value = (style_x = style_x.replace("px",""))
             y.value = (style_y = style_y.replace("px", ""))
-            // opacidad.value = ""
+            opacidad.value = style_opacidad
             // console.log(style_x)
 
         }else{
@@ -118,11 +121,11 @@ function watch(id){
             opacidad.style.display = "inline-block"
             
             rotacion.value = (style_rotate = style_rotate.replace("rotateZ(", ""), style_rotate.replace("deg)", ""))
-            // alto.value = ""
-            // ancho.value = ""
+            alto.value = (style_alto = style_alto.replace("px", ""))
+            ancho.value = (style_ancho = style_ancho.replace("px", ""))
             x.value = (style_x = style_x.replace("px", ""))
             y.value = (style_y = style_y.replace("px", ""))
-            // opacidad.value = ""
+            opacidad.value = style_opacidad
             // console.log(style_x)
 
         }
@@ -148,6 +151,14 @@ function attr(value, id) {
         case "r":
         img_puntual.style.transform = `rotateZ(${value}deg)`  
             break;
+        case "al":
+        img_puntual.style.height = `${value}px`
+            break;
+        case "an":
+        img_puntual.style.width = `${value}px`
+            break;
+        case "o":
+        img_puntual.style.opacity = value
         default:
             break;
     }
