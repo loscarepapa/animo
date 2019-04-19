@@ -77,9 +77,12 @@ label {
     margin: 10px 0px 5px 40px;
     color: rgb(0, 0, 0);
 }
-
-
-
 input[type="file"] {
     display: none;
+}
+.emparejar{
+    color:#fff;
+    background-color: #00000098;
+    width: 40px;
+    margin:auto;
 }

@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container" id="container">
-        <div class="lienzo" id="lienzo">
+        <div class="lienzo" id="lienzo" onmousemove="movement()">
 
 
         </div>
@@ -30,6 +30,11 @@
                     </td>
                     <td>
                         <input id="al" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Alto">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p onclicks="emparejar()" class="emparejar"><=></p>
                     </td>
                 </tr>
                 <tr>
