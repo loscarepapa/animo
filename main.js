@@ -19,8 +19,8 @@ function mostrar() {
             class="img"
             width="100px" 
             src="${reader.result}"
-            onclick="watch(this.id)" 
-            onmousedown="presionado(this.id)" > `;
+            onclick="watch(this.id)"
+            draggable="true"> `;
 
             z_index++
             total_de_capas[total_imagenes] = total_imagenes
@@ -218,18 +218,20 @@ function attr(value, id) {
 var movimiento_x, movimiento_y
 var img_movement
 
-
-function presionado(id) {
-
-    if (img_movement === id) {
-        img_movement = 0
-    } else {
-        img_movement = id
-    }
-
-    // watch(id);
+function captura_movimiento(){
+    movimiento_x = window.event.clientX
+    movimiento_y = window.event.clientY
+    console.log(window.event.clientX);
 }
 
+var proceso_Id = function() {
+        movimiento_x = window.event.clientX;
+        movimiento_y = window.event.clientY;
+        console.log(window.event.clientX);
+};
+
+
+//System of a drag
 function movement() {
 
     movimiento_x = window.event.clientX
@@ -243,7 +245,23 @@ function movement() {
         }
     }
 
-
-    // console.log(movimiento_x,movimiento_y)
-
 }
+
+var img_press
+
+document.addEventListener("dragstart", function(event) {
+
+    img_press = document.getElementById(event.target.id);
+
+});
+
+
+document.addEventListener("dragend", function(event) {
+  
+    if(img_puntual){
+        img_press.style.left = `${window.event.clientX - (img_puntual.style.width.replace("px", "") / 2)}px`;
+        img_press.style.top = `${window.event.clientY - (img_puntual.style.height.replace("px", "") / 2)}px`
+    }
+
+});
+//
