@@ -13,7 +13,6 @@
 .lienzo {
     background-color:#fff;
     width: 900px;
-    margin:5px 0px 0px 5px;
     height: 500px;
     position:absolute;
     overflow:hidden;
