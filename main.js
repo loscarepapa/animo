@@ -249,19 +249,38 @@ function movement() {
 
 var img_press;
 var position_mouse_img_x, position_mouse_img_y;
+var resto_x, resto_y;
 
 document.addEventListener("dragstart", function(event) {
-  position_mouse_img_x =
-    document.getElementById(event.target.id).style.left.replace("px", "") +
-    document.getElementById(event.target.id).style.width.replace("px", "");
-  position_mouse_img_y =
-    document.getElementById(event.target.id).style.top.replace("px", "") +
-    document.getElementById(event.target.id).style.height.replace("px", "");
-  console.log(
-    document.getElementById(event.target.id).style.width.replace("px", "")
+  var x, y;
+  var img_x, img_y;
+
+  x = window.event.clientX;
+  img_x = parseInt(
+    document.getElementById(event.target.id).style.left.replace("px", "")
   );
 
-  img_press = document.getElementById(event.target.id);
+  resto_x = x - img_x
+
+    y = window.event.clientY;
+    img_y = parseInt(
+      document.getElementById(event.target.id).style.top.replace("px", "")
+    );
+
+    resto_y = y - img_y;
+
+
+  //   position_mouse_img_x =
+  //     document.getElementById(event.target.id).style.left.replace("px", "") +
+  //     document.getElementById(event.target.id).style.width.replace("px", "");
+  //   position_mouse_img_y =
+  //     document.getElementById(event.target.id).style.top.replace("px", "") +
+  //     document.getElementById(event.target.id).style.height.replace("px", "");
+  //   console.log(
+  //     document.getElementById(event.target.id).style.width.replace("px", "")
+  //   );
+
+    img_press = document.getElementById(event.target.id);
 });
 
 // document.addEventListener("dragstart", function(event) {
@@ -283,10 +302,8 @@ document.addEventListener("dragstart", function(event) {
 
 document.addEventListener("dragend", function(event) {
   if (img_press && img_press.className === "img_watch") {
-    img_press.style.left = `${window.event.clientX -
-      img_puntual.style.width.replace("px", "") / 2}px`;
-    img_press.style.top = `${window.event.clientY -
-      img_puntual.style.height.replace("px", "") / 2}px`;
+    img_press.style.left = `${window.event.clientX - resto_x}px`;
+    img_press.style.top = `${window.event.clientY - resto_y}px`;
   }
 });
 //
