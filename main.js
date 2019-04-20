@@ -269,36 +269,8 @@ document.addEventListener("dragstart", function(event) {
 
     resto_y = y - img_y;
 
-
-  //   position_mouse_img_x =
-  //     document.getElementById(event.target.id).style.left.replace("px", "") +
-  //     document.getElementById(event.target.id).style.width.replace("px", "");
-  //   position_mouse_img_y =
-  //     document.getElementById(event.target.id).style.top.replace("px", "") +
-  //     document.getElementById(event.target.id).style.height.replace("px", "");
-  //   console.log(
-  //     document.getElementById(event.target.id).style.width.replace("px", "")
-  //   );
-
     img_press = document.getElementById(event.target.id);
 });
-
-// document.addEventListener("dragstart", function(event) {
-//   position_mouse_img_x = parseInt(
-//     document.getElementById(event.target.id).style.left.replace("px", "") +
-//       document.getElementById(event.target.id).style.width.replace("px", "")
-//   );
-
-//   position_mouse_img_y = parseInt(
-//     document.getElementById(event.target.id).style.top.replace("px", "") +
-//       document.getElementById(event.target.id).style.height.replace("px", "")
-//   );
-//   console.log(
-//     document.getElementById(event.target.id).style.width.replace("px", "")
-//   );
-
-//   img_press = position_mouse_img_y;
-// });
 
 document.addEventListener("dragend", function(event) {
   if (img_press && img_press.className === "img_watch") {

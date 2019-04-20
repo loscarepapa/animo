@@ -2,6 +2,13 @@
     margin:0;
     padding:0;
 }
+[draggable="true"] {
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
 .container {
     background-color: #242424;
     width: 100%;
