@@ -21,13 +21,14 @@
     background-color:#fff;
     width: 900px;
     height: 500px;
+    margin: 5px 0px 0px 15px;
     position:absolute;
     overflow:hidden;
 }
 .panel{
         background-color:rgb(94, 94, 94);
         width: 400px;
-        margin:5px 25px 0px 0px;
+        margin:5px 15px 0px 0px;
         height: 500px;
         position:absolute;
         right:0px;
@@ -47,7 +48,7 @@
 }
 .img_watch {
     position:absolute;
-    background: rgba(60, 255, 0, 0.404)
+    background: rgba(60, 255, 0, 0.486)
 }
 .name_attribute{
     color: #fff;
@@ -74,7 +75,7 @@
     
 }
 label {
-    padding: 10px;
+    padding: 5px;
     background: rgb(123, 255, 0);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     display: table;
@@ -90,5 +91,17 @@ input[type="file"] {
     color:#fff;
     background-color: #00000098;
     width: 40px;
-    margin:auto;
+    transform:rotateZ(90deg);
+    position:absolute;
+    margin-top:-10px;
+    margin-left:-10px;
+}
+.emparejar_activo {
+    color: #fff;
+    background-color: #379c1e;
+    width: 40px;
+    transform: rotateZ(90deg);
+    position: absolute;
+    margin-top: -10px;
+    margin-left: -10px;
 }
