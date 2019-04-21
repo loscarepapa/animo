@@ -95,6 +95,7 @@ input[type="file"] {
     position:absolute;
     margin-top:-10px;
     margin-left:-10px;
+    cursor:pointer;
 }
 .emparejar_activo {
     color: #fff;
@@ -104,4 +105,5 @@ input[type="file"] {
     position: absolute;
     margin-top: -10px;
     margin-left: -10px;
+    cursor:pointer;
 }
