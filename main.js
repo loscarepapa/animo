@@ -23,11 +23,11 @@ function mostrar() {
 
       z_index++;
       total_de_capas[total_imagenes] = total_imagenes;
-      console.log(total_de_capas);
+    //   console.log(total_de_capas);
       total_imagenes++;
     };
   } else {
-    console.log("Hubo un error");
+    // console.log("Hubo un error");
   }
 
   if (img_puntual) {
@@ -139,13 +139,13 @@ function watch(id) {
         document
           .getElementById("emparejar")
           .setAttribute("onclick", "borrar_al_an()");
-        console.log("Si, esta dentro");
+        // console.log("Si, esta dentro");
       } else {
         document.getElementById("emparejar").className = "emparejar";
         document
           .getElementById("emparejar")
           .setAttribute("onclick", "emparejar_al_an()");
-        console.log("No, esta dentro");
+        // console.log("No, esta dentro");
       }
 
       rotacion.style.display = "inline-block";
@@ -168,7 +168,7 @@ function watch(id) {
       y.value = style_y = style_y.replace("px", "");
       opacidad.value = style_opacidad;
       zindex.value = style_zindex;
-      // console.log(style_x)
+      console.log(style_x)
     } else {
       img_puntual = img_watch;
       img_watch.className = "img_watch";
@@ -180,13 +180,13 @@ function watch(id) {
         document
           .getElementById("emparejar")
           .setAttribute("onclick", "borrar_al_an()");
-        console.log("Si, esta dentro");
+        // console.log("Si, esta dentro");
       } else {
         document.getElementById("emparejar").className = "emparejar";
         document
           .getElementById("emparejar")
           .setAttribute("onclick", "emparejar_al_an()");
-        console.log("No, esta dentro");
+        // console.log("No, esta dentro");
       }
 
       id_seleccionador.style.display = "inline-block";
@@ -342,7 +342,7 @@ function emparejar_al_an() {
     img_w = img_puntual.id;
   }
   if (img_w >= 0 && escalable_id.includes(img_w)) {
-    console.log("Esta dentro del array");
+    // console.log("Esta dentro del array");
     document.getElementById("emparejar").className = "emparejar";
     document
       .getElementById("emparejar")
@@ -356,7 +356,7 @@ function emparejar_al_an() {
       .getElementById("emparejar")
       .setAttribute("onclick", "borrar_al_an()");
   }
-  console.log(escalable_id);
+//   console.log(escalable_id);
 }
 
 function borrar_al_an() {
@@ -371,7 +371,7 @@ function borrar_al_an() {
     .getElementById("emparejar")
     .setAttribute("onclick", "emparejar_al_an()");
   if (escalable_id.includes(img_w)) {
-    console.log("Esta dentro del array");
+    // console.log("Esta dentro del array");
   }
-  console.log("Borrar del array");
+//   console.log("Borrar del array");
 }
