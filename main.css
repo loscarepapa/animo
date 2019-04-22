@@ -49,11 +49,13 @@
 }
 .img_watch {
     position:absolute;
-    background: rgba(60, 255, 0, 0.486)
+    background: rgba(60, 255, 0, 0.486);
+    background-size: cover;
 }
 .img_interna {
     width: 100%;
     height: 100%;
+    background-size: cover;
     
 }
 .name_attribute{
