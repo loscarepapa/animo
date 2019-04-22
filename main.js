@@ -12,21 +12,19 @@ function mostrar() {
   if (file) {
     reader.readAsDataURL(archivo);
     reader.onloadend = function() {
-        lienzo.innerHTML += `
+      lienzo.innerHTML += `
             <div class="imagenes_puntos" id="interna">
             <div class="imagenes_puntos" id="interna">
-        <div class="img" id="${0}" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};background-image: url(${reader.result});background-repeat:no-repeat;background-size:100% 100%;' onclick='watch(this.id)' draggable='false'>
-            <div class="imagenes_puntos" id="interna">
-                <div class="alto_1"></div>
-                <div class="alto_2"></div>
-                <div class="ancho_1"></div>
-                <div class="ancho_2"></div>
+        <div class="img" id="${total_imagenes}" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};background-image: url(${
+        reader.result
+      });background-repeat:no-repeat;background-size:100% 100%;' onclick='watch(this.id)' draggable='false'>
+            <div class="imagenes_puntos" id="${total_imagenes}_interna">
             </div>
         </div>`;
-        // console.log(reader.result)
+      // console.log(reader.result)
       z_index++;
       total_de_capas[total_imagenes] = total_imagenes;
-    //   console.log(total_de_capas);
+      //   console.log(total_de_capas);
       total_imagenes++;
     };
   } else {
@@ -59,7 +57,10 @@ function mostrar() {
 
     img_puntual.className = "img";
     img_puntual.setAttribute("draggable", "false");
-    img_puntual = 0;
+
+    document.getElementById(`${img_puntual.id}_interna`).innerHTML = "";
+
+    img_puntual = null;
   }
 }
 
@@ -80,6 +81,8 @@ function watch(id) {
 
     img_puntual.className = "img";
     img_puntual.setAttribute("draggable", "false");
+
+    document.getElementById(`${img_puntual.id}_interna`).innerHTML = "";
 
     img_puntual = "";
     id_seleccionador.value = "";
@@ -126,11 +129,19 @@ function watch(id) {
     if (img_puntual) {
       img_puntual.className = "img";
 
+      document.getElementById(`${img_puntual.id}_interna`).innerHTML = "";
+      
       img_puntual.setAttribute("draggable", "false");
 
       img_puntual = img_watch;
 
       img_watch.className = "img_watch";
+
+      document.getElementById(`${img_puntual.id}_interna`).innerHTML = `
+        <div class="alto_1"></div>
+        <div class="alto_2"></div>
+        <div class="ancho_1"></div>
+        <div class="ancho_2"></div>`;
 
       img_watch.setAttribute("draggable", "true");
 
@@ -171,10 +182,16 @@ function watch(id) {
       y.value = style_y = style_y.replace("px", "");
       opacidad.value = style_opacidad;
       zindex.value = style_zindex;
-      console.log(style_x)
+      //   console.log(style_x)
     } else {
       img_puntual = img_watch;
       img_watch.className = "img_watch";
+
+      document.getElementById(`${img_puntual.id}_interna`).innerHTML = `
+        <div class="alto_1"></div>
+        <div class="alto_2"></div>
+        <div class="ancho_1"></div>
+        <div class="ancho_2"></div>`;
 
       img_watch.setAttribute("draggable", "true");
 
@@ -359,7 +376,7 @@ function emparejar_al_an() {
       .getElementById("emparejar")
       .setAttribute("onclick", "borrar_al_an()");
   }
-//   console.log(escalable_id);
+  //   console.log(escalable_id);
 }
 
 function borrar_al_an() {
@@ -376,6 +393,5 @@ function borrar_al_an() {
   if (escalable_id.includes(img_w)) {
     // console.log("Esta dentro del array");
   }
-//   console.log("Borrar del array");
+  //   console.log("Borrar del array");
 }
-
