@@ -12,22 +12,23 @@ function mostrar() {
   if (file) {
     reader.readAsDataURL(archivo);
     reader.onloadend = function() {
-      lienzo.innerHTML += `<img 
-            id='${total_imagenes}'
-            style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};' 
-            class='img'
-            width='100px' 
-            src='${reader.result}'
-            onclick='watch(this.id)'
-            draggable='false'> `;
-
+    lienzo.innerHTML += `
+        <div class="img" id="${total_imagenes}" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};' onclick='watch(this.id)' draggable='false'>
+            <div class="imagenes_puntos" id="${total_imagenes}_interna">
+                <div class="alto_1"></div>
+                <div class="alto_2"></div>
+                <div class="ancho_1"></div>
+                <div class="ancho_2"></div>
+            </div>
+        <img class='img_interna' src='${reader.result}'>
+    </div>`;
       z_index++;
       total_de_capas[total_imagenes] = total_imagenes;
     //   console.log(total_de_capas);
       total_imagenes++;
     };
   } else {
-    // console.log("Hubo un error");
+    console.log("Hubo un error");
   }
 
   if (img_puntual) {
@@ -375,3 +376,4 @@ function borrar_al_an() {
   }
 //   console.log("Borrar del array");
 }
+
