@@ -6,27 +6,34 @@ var atributos_de_imagenes = [];
 
 var z_index = 1;
 
+var archivo
+const TAMANO_LIENZO_X = 500
+const TAMANO_LIENZO_Y = 900
+
 function mostrar() {
-  var archivo = document.getElementById("file").files[0];
+  archivo = document.getElementById("file").files[0];
   var reader = new FileReader();
+
   if (file) {
     reader.readAsDataURL(archivo);
     reader.onloadend = function() {
       lienzo.innerHTML += `
             <div class="imagenes_puntos" id="interna">
-            <div class="imagenes_puntos" id="interna">
-        <div class="img" id="${total_imagenes}" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};background-image: url(${
-        reader.result
-      });background-repeat:no-repeat;background-size:100% 100%;' onclick='watch(this.id)' draggable='false'>
-            <div class="imagenes_puntos" id="${total_imagenes}_interna">
-            </div>
-        </div>`;
+              <div class="imagenes_puntos" id="interna">
+              <div class="img" id="${total_imagenes}" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};background-image: url(${reader.result});background-repeat:no-repeat;background-size:100% 100%;'
+                  onclick='watch(this.id)' 
+                  draggable='false'>
+              <div class="imagenes_puntos" id="${total_imagenes}_interna">
+              </div>
+            </div>`;
+
       // console.log(reader.result)
       z_index++;
       total_de_capas[total_imagenes] = total_imagenes;
       //   console.log(total_de_capas);
       total_imagenes++;
-    };
+    }
+    // console.log(reader);
   } else {
     console.log("Hubo un error");
   }
@@ -138,10 +145,10 @@ function watch(id) {
       img_watch.className = "img_watch";
 
       document.getElementById(`${img_puntual.id}_interna`).innerHTML = `
-        <div class="alto_1"></div>
-        <div class="alto_2"></div>
-        <div class="ancho_1"></div>
-        <div class="ancho_2"></div>`;
+        <div class="alto_1" onclick="hola()"></div>
+        <div class="alto_2" onclick="hola()"></div>
+        <div class="ancho_1" onclick="hola()"></div>
+        <div class="ancho_2" onclick="hola()"></div>`;
 
       img_watch.setAttribute("draggable", "true");
 
@@ -188,10 +195,10 @@ function watch(id) {
       img_watch.className = "img_watch";
 
       document.getElementById(`${img_puntual.id}_interna`).innerHTML = `
-        <div class="alto_1"></div>
-        <div class="alto_2"></div>
-        <div class="ancho_1"></div>
-        <div class="ancho_2"></div>`;
+        <div class="alto_1" onclick="hola()"></div>
+        <div class="alto_2" onclick="hola()"></div>
+        <div class="ancho_1" onclick="hola()"></div>
+        <div class="ancho_2" onclick="hola()"></div>`;
 
       img_watch.setAttribute("draggable", "true");
 
@@ -394,4 +401,8 @@ function borrar_al_an() {
     // console.log("Esta dentro del array");
   }
   //   console.log("Borrar del array");
+}
+
+function hola(){
+  console.log("hola")
 }

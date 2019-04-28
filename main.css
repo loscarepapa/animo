@@ -91,6 +91,10 @@ label {
     border-radius: 30px;
     margin: 10px 0px 5px 40px;
     color: rgb(0, 0, 0);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select:none;
 }
 input[type="file"] {
     display: none;
@@ -126,18 +130,22 @@ input[type="file"] {
 .alto_1{
     left:50%;
     transform:translate(-50%,-50%);
+    z-index:10000000000;
 }
 .alto_2{
     left:50%;
     top:100%;
     transform:translate(-50%,-50%);
+    z-index:10000000000;
 }
 .ancho_1{
     top:50%;
     transform:translate(-50%,-50%);
+    z-index:10000000000;
 }
 .ancho_2{
     top:50%;
     left:100%;
     transform:translate(-50%,-50%);
+    z-index:10000000000;
 }
