@@ -13,12 +13,10 @@ function mostrar() {
     reader.readAsDataURL(archivo);
     reader.onloadend = function() {
       lienzo.innerHTML += `
-
-              <div class="img" id="${total_imagenes}" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};background-image: url(${reader.result});background-repeat:no-repeat;background-size:100% 100%;' onclick='watch(this.id)' draggable='false'>
-              <div class="imagenes_puntos" id="${total_imagenes}_interna">
-              </div>
-              </div>
-`;
+        <div class="img" id="${total_imagenes}" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};background-image: url(${reader.result});background-repeat:no-repeat;background-size:100% 100%;' onclick='watch(this.id)' draggable='false'>
+          <div class="imagenes_puntos" id="${total_imagenes}_interna">
+          </div>
+        </div>`;
       // console.log(reader.result)
       z_index++;
       total_de_capas[total_imagenes] = total_imagenes;
@@ -318,6 +316,7 @@ var img_movement;
 function movement() {
   movimiento_x = window.event.clientX;
   movimiento_y = window.event.clientY;
+  // console.log(movimiento_x, movimiento_y)
 }
 
 var img_press;
