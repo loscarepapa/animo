@@ -13,9 +13,10 @@ function mostrar() {
     reader.readAsDataURL(archivo);
     reader.onloadend = function() {
       lienzo.innerHTML += `
-        <div class="img" id="${total_imagenes}" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};background-image: url(${reader.result});background-repeat:no-repeat;background-size:100% 100%;' onclick='watch(this.id)' draggable='false'>
+        <div class="img" id="${total_imagenes}_externa" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};'>
           <div class="imagenes_puntos" id="${total_imagenes}_interna">
           </div>
+          <img src="${reader.result}" id="${total_imagenes}_interna" class="img_interna"  onclick='watch(this.id)' draggable='false'>
         </div>`;
       // console.log(reader.result)
       z_index++;
