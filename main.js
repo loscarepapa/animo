@@ -149,7 +149,7 @@ var rotacion = document.getElementById("r"),
       id_seleccionador.style.display = "inline-block";
       tabla.style.display = "inline-block";
 
-      if (escalable_id.includes(img_puntual.id)) {
+      if (escalable_id.includes(img_puntual.id.replace("_img_externa",""))) {
         document.getElementById("emparejar").className = "emparejar_activo";
             document.getElementById("emparejar").innerHTML = "<i class='fas fa-lock'></i>"
         document
@@ -198,7 +198,7 @@ var rotacion = document.getElementById("r"),
 
       img_watch_img.setAttribute("draggable", "true");
 
-      if (escalable_id.includes(img_puntual.id)) {
+      if (escalable_id.includes(img_puntual.id.replace("_img_externa",""))) {
         document.getElementById("emparejar").className = "emparejar_activo";
             document.getElementById("emparejar").innerHTML = "<i class='fas fa-lock'></i>"
         document
