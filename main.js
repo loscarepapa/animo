@@ -374,6 +374,7 @@ function emparejar_al_an() {
     position_escalable++;
 
     document.getElementById("emparejar").className = "emparejar_activo";
+    document.getElementById("emparejar").innerHTML = "<i class='fas fa-lock'></i>"
     document
       .getElementById("emparejar")
       .setAttribute("onclick", "borrar_al_an()");
@@ -389,6 +390,8 @@ function borrar_al_an() {
   }
 
   document.getElementById("emparejar").className = "emparejar";
+  document.getElementById("emparejar").innerHTML =
+    "<i class='fas fa-lock-open'></i>";
   document
     .getElementById("emparejar")
     .setAttribute("onclick", "emparejar_al_an()");
