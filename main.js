@@ -6,6 +6,7 @@ var atributos_de_imagenes = [];
 
 var z_index = 1;
 
+//¿  insert the image in the canvas
 function mostrar() {
   var archivo = document.getElementById("file").files[0];
   var reader = new FileReader();
@@ -18,16 +19,16 @@ function mostrar() {
           </div>
           <img src="${reader.result}" id="${total_imagenes}" class="img_interna"  onclick='watch(this.id)' draggable='false'>
         </div>`;
-      // console.log(reader.result)
       z_index++;
       total_de_capas[total_imagenes] = total_imagenes;
-      //   console.log(total_de_capas);
       total_imagenes++;
     };
   } else {
     console.log("Hubo un error");
   }
+//¿
 
+//* ask if have something selected and deleted it
   if (img_puntual) {
     rotacion.style.display = "none";
     alto.style.display = "none";
@@ -57,28 +58,39 @@ function mostrar() {
     
     document.getElementById(`${img_puntual.id.replace("_img_externa","")}_interna`).innerHTML = "";
     
+    img_puntual.style.zIndex = index_before;
+    index_before = "";
+    
     img_puntual = null;
+    
   }
+  //*
 }
 
 var img_puntual;
+var img_puntual_img;
+var img_puntual_interna;
 var id_seleccionador = document.getElementById("id_imagen");
 var tabla = document.getElementById("tabla");
 var rotacion = document.getElementById("r"),
-  alto = document.getElementById("al"),
-  ancho = document.getElementById("an"),
-  x = document.getElementById("x"),
-  y = document.getElementById("y"),
-  opacidad = document.getElementById("o"),
-  zindex = document.getElementById("z");
+    alto = document.getElementById("al"),
+    ancho = document.getElementById("an"),
+    x = document.getElementById("x"),
+    y = document.getElementById("y"),
+    opacidad = document.getElementById("o"),
+    zindex = document.getElementById("z");
+var index_before;
   
   function watch(id) {
+    //¿ if selected the same the it deleted
     // debugger
     if (document.getElementById(`${id}_img_externa`) == img_puntual) {
       document.getElementById(`${id}`).setAttribute("draggable", "false");
       img_puntual.className = "img";
-      img_puntual.setAttribute("draggable", "false");
-      
+      img_puntual.style.zIndex = index_before;
+      index_before = "" ;
+
+
     document.getElementById(`${id}_interna`).innerHTML = "";
 
     img_puntual = "";
@@ -111,6 +123,7 @@ var rotacion = document.getElementById("r"),
     for (let i = 0; i < 8; i++) {
       document.getElementById(`title_attribute${i}`).style.display = "none";
     }
+    //¿
   } else {
     id_seleccionador.value = id;
 
@@ -127,14 +140,29 @@ var rotacion = document.getElementById("r"),
     var style_opacidad = img_watch_externa.style.opacity;
     var style_zindex = img_watch_externa.style.zIndex;
 
+  //* if had other image in the variable delete it
     if (img_puntual) {
       img_puntual.className = "img";
+      
+      console.log(index_before)
 
+      
+      img_puntual.style.zIndex = index_before;
+      
       document.getElementById(`${img_puntual.id.replace("_img_externa","")}_interna`).innerHTML = "";
       
-      document.getElementById(img_puntual.id).setAttribute("draggable", "false");
-
+      document.getElementById(img_puntual.id.replace("_img_externa","")).setAttribute("draggable", "false");
+      
+      //! before of this id for delete the image previous and after is for add to the new image
       img_puntual = img_watch_externa;
+
+      index_before = img_watch_externa.style.zIndex
+      img_watch_externa.style.zIndex = z_index;
+
+      img_puntual_img = document.getElementById(`${img_watch_externa.id.replace("_img_externa","")}`);
+      img_puntual_interna = document.getElementById(`${img_watch_externa.id.replace("_img_externa","")}_img_interna`);
+
+      img_puntual_img.setAttribute("draggable", "true");
 
       img_watch_externa.className = "img_watch";
 
@@ -143,8 +171,6 @@ var rotacion = document.getElementById("r"),
         <div class="alto_2" draggable="true"></div>
         <div class="ancho_1" draggable="true"></div>
         <div class="ancho_2" draggable="true"></div>`;
-
-      img_watch_externa.setAttribute("draggable", "true");
 
       id_seleccionador.style.display = "inline-block";
       tabla.style.display = "inline-block";
@@ -185,10 +211,15 @@ var rotacion = document.getElementById("r"),
       y.value = style_y = style_y.replace("px", "");
       opacidad.value = style_opacidad;
       zindex.value = style_zindex;
-      //   console.log(style_x)
+
+      //*
+      //¿ if it not added to the variable
     } else {
       img_puntual = img_watch_externa;
-      document.getElementById(`${img_watch_externa.id}`).className = "img_watch";
+      document.getElementById(img_watch_externa.id).className = "img_watch";
+
+      index_before = img_watch_externa.style.zIndex
+      img_watch_externa.style.zIndex = z_index;
 
       img_watch_interna.innerHTML = `
         <div class="alto_1" draggable="true"></div>
@@ -196,7 +227,7 @@ var rotacion = document.getElementById("r"),
         <div class="ancho_1" draggable="true"></div>
         <div class="ancho_2" draggable="true"></div>`;
 
-      img_watch_img.setAttribute("draggable", "true");
+      document.getElementById(img_puntual.id.replace("_img_externa","")).setAttribute("draggable", "true");
 
       if (escalable_id.includes(img_puntual.id.replace("_img_externa",""))) {
         document.getElementById("emparejar").className = "emparejar_activo";
@@ -238,6 +269,7 @@ var rotacion = document.getElementById("r"),
       opacidad.value = style_opacidad;
       zindex.value = style_zindex;
     }
+    //¿
   }
   // console.log(id)
 }
@@ -350,7 +382,7 @@ document.addEventListener("dragstart", function(event) {
   resto_y = y - img_y;
 
   img_press = document.getElementById(`${event.target.id}_img_externa`);
-  console.log(img_press)
+  // console.log(img_press)
 });
 
 document.addEventListener("dragend", function(event) {
