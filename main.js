@@ -13,10 +13,10 @@ function mostrar() {
     reader.readAsDataURL(archivo);
     reader.onloadend = function() {
       lienzo.innerHTML += `
-        <div class="img" id="${total_imagenes}_externa" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};'>
-          <div class="imagenes_puntos" id="${total_imagenes}_interna">
+        <div class="img" id="${total_imagenes}_img_externa" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};' draggeble='false'>
+          <div class="imagenes_puntos" id="${total_imagenes}_interna" draggeble='false'>
           </div>
-          <img src="${reader.result}" id="${total_imagenes}_interna" class="img_interna"  onclick='watch(this.id)' draggable='false'>
+          <img src="${reader.result}" id="${total_imagenes}" class="img_interna"  onclick='watch(this.id)' draggable='false'>
         </div>`;
       // console.log(reader.result)
       z_index++;
@@ -51,12 +51,12 @@ function mostrar() {
     for (let i = 0; i < 8; i++) {
       document.getElementById(`title_attribute${i}`).style.display = "none";
     }
-
+    
     img_puntual.className = "img";
     img_puntual.setAttribute("draggable", "false");
-
-    document.getElementById(`${img_puntual.id}_interna`).innerHTML = "";
-
+    
+    img_watch_interna.innerHTML = "";
+    
     img_puntual = null;
   }
 }
@@ -71,21 +71,21 @@ var rotacion = document.getElementById("r"),
   y = document.getElementById("y"),
   opacidad = document.getElementById("o"),
   zindex = document.getElementById("z");
-
-function watch(id) {
-  if (document.getElementById(id) == img_puntual) {
-    document.getElementById(id).setAttribute("draggable", "false");
-
-    img_puntual.className = "img";
-    img_puntual.setAttribute("draggable", "false");
-
-    document.getElementById(`${img_puntual.id}_interna`).innerHTML = "";
+  
+  function watch(id) {
+    // debugger
+    if (document.getElementById(`${id}_img_externa`) == img_puntual) {
+      document.getElementById(`${id}`).setAttribute("draggable", "false");
+      img_puntual.className = "img";
+      img_puntual.setAttribute("draggable", "false");
+      
+    document.getElementById(`${id}_interna`).innerHTML = "";
 
     img_puntual = "";
     id_seleccionador.value = "";
     id_seleccionador.style.display = "none";
     tabla.style.display = "none";
-
+    
     rotacion.style.display = "none";
     alto.style.display = "none";
     ancho.style.display = "none";
@@ -93,7 +93,7 @@ function watch(id) {
     y.style.display = "none";
     opacidad.style.display = "none";
     zindex.style.display = "none";
-
+    
     rotacion.value = "";
     alto.value = "";
     ancho.value = "";
@@ -106,41 +106,44 @@ function watch(id) {
     document
       .getElementById("emparejar")
       .setAttribute("onclick", "emparejar_al_an()");
-
+      
     for (let i = 0; i < 8; i++) {
       document.getElementById(`title_attribute${i}`).style.display = "none";
     }
   } else {
     id_seleccionador.value = id;
 
-    var img_watch = document.getElementById(id);
+    var img_watch_externa = document.getElementById(`${id}_img_externa`);
+    var img_watch_interna = document.getElementById(`${id}_interna`)
+    var img_watch_img = document.getElementById(id)
+    console.log(img_watch_interna)
 
-    var style_rotate = img_watch.style.transform;
-    var style_alto = img_watch.style.height;
-    var style_ancho = img_watch.style.width;
-    var style_x = img_watch.style.left;
-    var style_y = img_watch.style.top;
-    var style_opacidad = img_watch.style.opacity;
-    var style_zindex = img_watch.style.zIndex;
+    var style_rotate = img_watch_externa.style.transform;
+    var style_alto = img_watch_externa.style.height;
+    var style_ancho = img_watch_externa.style.width;
+    var style_x = img_watch_externa.style.left;
+    var style_y = img_watch_externa.style.top;
+    var style_opacidad = img_watch_externa.style.opacity;
+    var style_zindex = img_watch_externa.style.zIndex;
 
     if (img_puntual) {
       img_puntual.className = "img";
 
-      document.getElementById(`${img_puntual.id}_interna`).innerHTML = "";
+      img_watch_interna.innerHTML = "";
       
-      img_puntual.setAttribute("draggable", "false");
+      document.getElementById(img_puntual.id).setAttribute("draggable", "false");
 
-      img_puntual = img_watch;
+      img_puntual = img_watch_externa;
 
-      img_watch.className = "img_watch";
+      img_watch_externa.className = "img_watch";
 
-      document.getElementById(`${img_puntual.id}_interna`).innerHTML = `
-        <div class="alto_1" onclick=""></div>
-        <div class="alto_2" onclick=""></div>
-        <div class="ancho_1" onclick=""></div>
-        <div class="ancho_2" onclick=""></div>`;
+      img_watch_interna.innerHTML = `
+        <div class="alto_1" draggable="true"></div>
+        <div class="alto_2" draggable="true"></div>
+        <div class="ancho_1" draggable="true"></div>
+        <div class="ancho_2" draggable="true"></div>`;
 
-      img_watch.setAttribute("draggable", "true");
+      img_watch_externa.setAttribute("draggable", "true");
 
       id_seleccionador.style.display = "inline-block";
       tabla.style.display = "inline-block";
@@ -181,16 +184,16 @@ function watch(id) {
       zindex.value = style_zindex;
       //   console.log(style_x)
     } else {
-      img_puntual = img_watch;
-      img_watch.className = "img_watch";
+      img_puntual = img_watch_externa;
+      document.getElementById(`${img_watch_externa.id}`).className = "img_watch";
 
-      document.getElementById(`${img_puntual.id}_interna`).innerHTML = `
-        <div class="alto_1"></div>
-        <div class="alto_2"></div>
-        <div class="ancho_1"></div>
-        <div class="ancho_2"></div>`;
+      img_watch_interna.innerHTML = `
+        <div class="alto_1" draggable="true"></div>
+        <div class="alto_2" draggable="true"></div>
+        <div class="ancho_1" draggable="true"></div>
+        <div class="ancho_2" draggable="true"></div>`;
 
-      img_watch.setAttribute("draggable", "true");
+      img_watch_img.setAttribute("draggable", "true");
 
       if (escalable_id.includes(img_puntual.id)) {
         document.getElementById("emparejar").className = "emparejar_activo";
@@ -231,6 +234,7 @@ function watch(id) {
       zindex.value = style_zindex;
     }
   }
+  console.log(id)
 }
 
 function change_id(id) {
@@ -344,7 +348,7 @@ document.addEventListener("dragstart", function(event) {
 });
 
 document.addEventListener("dragend", function(event) {
-  if (img_press && img_press.className === "img_watch") {
+  if (img_press && img_press.className === "img_watch_externa") {
     img_press.style.left = `${window.event.clientX - resto_x}px`;
     img_press.style.top = `${window.event.clientY - resto_y}px`;
   }
