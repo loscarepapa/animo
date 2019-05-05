@@ -55,7 +55,7 @@ function mostrar() {
     img_puntual.className = "img";
     img_puntual.setAttribute("draggable", "false");
     
-    img_watch_interna.innerHTML = "";
+    document.getElementById(`${img_puntual.id.replace("_img_externa","")}_interna`).innerHTML = "";
     
     img_puntual = null;
   }
@@ -103,6 +103,7 @@ var rotacion = document.getElementById("r"),
     zindex.value = "";
 
     document.getElementById("emparejar").className = "emparejar";
+    document.getElementById("emparejar").innerHTML = "<i class='fas fa-lock-open'></i>"
     document
       .getElementById("emparejar")
       .setAttribute("onclick", "emparejar_al_an()");
@@ -116,7 +117,7 @@ var rotacion = document.getElementById("r"),
     var img_watch_externa = document.getElementById(`${id}_img_externa`);
     var img_watch_interna = document.getElementById(`${id}_interna`)
     var img_watch_img = document.getElementById(id)
-    console.log(img_watch_interna)
+    // console.log(img_watch_interna)
 
     var style_rotate = img_watch_externa.style.transform;
     var style_alto = img_watch_externa.style.height;
@@ -129,7 +130,7 @@ var rotacion = document.getElementById("r"),
     if (img_puntual) {
       img_puntual.className = "img";
 
-      img_watch_interna.innerHTML = "";
+      document.getElementById(`${img_puntual.id.replace("_img_externa","")}_interna`).innerHTML = "";
       
       document.getElementById(img_puntual.id).setAttribute("draggable", "false");
 
@@ -150,12 +151,14 @@ var rotacion = document.getElementById("r"),
 
       if (escalable_id.includes(img_puntual.id)) {
         document.getElementById("emparejar").className = "emparejar_activo";
+            document.getElementById("emparejar").innerHTML = "<i class='fas fa-lock'></i>"
         document
           .getElementById("emparejar")
           .setAttribute("onclick", "borrar_al_an()");
         // console.log("Si, esta dentro");
       } else {
         document.getElementById("emparejar").className = "emparejar";
+        document.getElementById("emparejar").innerHTML = "<i class='fas fa-lock-open'></i>"
         document
           .getElementById("emparejar")
           .setAttribute("onclick", "emparejar_al_an()");
@@ -197,12 +200,14 @@ var rotacion = document.getElementById("r"),
 
       if (escalable_id.includes(img_puntual.id)) {
         document.getElementById("emparejar").className = "emparejar_activo";
+            document.getElementById("emparejar").innerHTML = "<i class='fas fa-lock'></i>"
         document
           .getElementById("emparejar")
           .setAttribute("onclick", "borrar_al_an()");
         // console.log("Si, esta dentro");
       } else {
         document.getElementById("emparejar").className = "emparejar";
+        document.getElementById("emparejar").innerHTML = "<i class='fas fa-lock-open'></i>"
         document
           .getElementById("emparejar")
           .setAttribute("onclick", "emparejar_al_an()");
@@ -234,7 +239,7 @@ var rotacion = document.getElementById("r"),
       zindex.value = style_zindex;
     }
   }
-  console.log(id)
+  // console.log(id)
 }
 
 function change_id(id) {
@@ -334,24 +339,26 @@ document.addEventListener("dragstart", function(event) {
 
   x = window.event.clientX;
   img_x = parseInt(
-    document.getElementById(event.target.id).style.left.replace("px", "")
+    document.getElementById(`${event.target.id}_img_externa`).style.left.replace("px", "")
   );
   resto_x = x - img_x;
 
   y = window.event.clientY;
   img_y = parseInt(
-    document.getElementById(event.target.id).style.top.replace("px", "")
+    document.getElementById(`${event.target.id}_img_externa`).style.top.replace("px", "")
   );
   resto_y = y - img_y;
 
-  img_press = document.getElementById(event.target.id);
+  img_press = document.getElementById(`${event.target.id}_img_externa`);
+  console.log(img_press)
 });
 
 document.addEventListener("dragend", function(event) {
-  if (img_press && img_press.className === "img_watch_externa") {
+  if (img_press && img_press.className === "img_watch") {
     img_press.style.left = `${window.event.clientX - resto_x}px`;
     img_press.style.top = `${window.event.clientY - resto_y}px`;
   }
+  // console.log(window.event.clientX, window.event.clientY)
 });
 //
 
@@ -360,11 +367,13 @@ var position_escalable = 0;
 var img_w;
 
 function emparejar_al_an() {
+  // debugger
   if (img_puntual) {
     img_w = img_puntual.id;
   }
   if (img_w >= 0 && escalable_id.includes(img_w)) {
     // console.log("Esta dentro del array");
+    document.getElementById("emparejar").innerHTML = "<i class='fas fa-lock-open'></i>"
     document.getElementById("emparejar").className = "emparejar";
     document
       .getElementById("emparejar")
@@ -373,8 +382,8 @@ function emparejar_al_an() {
     escalable_id[position_escalable] = id_seleccionador.value;
     position_escalable++;
 
-    document.getElementById("emparejar").className = "emparejar_activo";
     document.getElementById("emparejar").innerHTML = "<i class='fas fa-lock'></i>"
+    document.getElementById("emparejar").className = "emparejar_activo";
     document
       .getElementById("emparejar")
       .setAttribute("onclick", "borrar_al_an()");
