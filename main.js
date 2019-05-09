@@ -411,6 +411,8 @@ var position_mouse_img_x, position_mouse_img_y;
 var resto_x, resto_y;
 
 var puntos = false
+var init_pnt_x_1
+var init_pnt_y_1
 
 document.addEventListener("dragstart", function(event) {
   
@@ -423,6 +425,7 @@ document.addEventListener("dragstart", function(event) {
     case "al_2":
       console.log("Es el alto 2");
       puntos = true
+      init_pnt_y_1 = window.event.clientY
       break;
     case "an_1":
       console.log("Es el ancho 1");
@@ -431,6 +434,7 @@ document.addEventListener("dragstart", function(event) {
     case "an_2":
       console.log("Es el ancho 2");
       puntos = true
+      init_pnt_x_1 = window.event.clientX
       break;
 
     default:
@@ -469,6 +473,31 @@ document.addEventListener("dragend", function(event) {
       img_press.style.left = `${window.event.clientX - resto_x}px`;
       img_press.style.top = `${window.event.clientY - resto_y}px`;
     }
+  }else{
+    
+
+    switch (event.target.id) {
+      case "al_1":
+        console.log("Es el alto 1");
+        break;
+      case "al_2":
+        console.log("Es el alto 2");
+        var alto_img = parseInt(img_puntual.style.height.replace("px", ""));
+        img_puntual.style.height = `${alto_img + (window.event.clientY - init_pnt_y_1)}px`
+        break;
+      case "an_1":
+        console.log("Es el ancho 1");
+        break;
+      case "an_2":
+        console.log("Es el ancho 2");
+        var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
+        img_puntual.style.width = `${ancho_img + (window.event.clientX - init_pnt_x_1)}px`
+        break;
+
+      default:
+        break;
+    }
+    
   }
 
 });
