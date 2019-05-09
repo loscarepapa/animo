@@ -60,6 +60,10 @@ function mostrar() {
     
     img_puntual.style.zIndex = index_before;
     index_before = "";
+
+    for (let i = 0; i < zindex_modificado_id.length; i++) {
+      document.getElementById(`${zindex_modificado_id[i]}_img_externa`).style.zIndex = zindex_img[i]
+    }
     
     img_puntual = null;
     
@@ -123,6 +127,11 @@ var index_before;
     for (let i = 0; i < 8; i++) {
       document.getElementById(`title_attribute${i}`).style.display = "none";
     }
+
+    for (let i = 0; i < zindex_modificado_id.length; i++) {
+      document.getElementById(`${zindex_modificado_id[i]}_img_externa`).style.zIndex = zindex_img[i]
+    }
+
     //¿
   } else {
     id_seleccionador.value = id;
@@ -142,10 +151,10 @@ var index_before;
 
   //* if had other image in the variable delete it
     if (img_puntual) {
+      
       img_puntual.className = "img";
       
       console.log(index_before)
-
       
       img_puntual.style.zIndex = index_before;
       
@@ -155,6 +164,10 @@ var index_before;
       
       //! before of this id for delete the image previous and after is for add to the new image
       img_puntual = img_watch_externa;
+
+          for (let i = 0; i < zindex_modificado_id.length; i++) {
+          document.getElementById(`${zindex_modificado_id[i]}_img_externa`).style.zIndex = zindex_img[i]
+        }
 
       index_before = img_watch_externa.style.zIndex
       img_watch_externa.style.zIndex = z_index;
@@ -288,7 +301,8 @@ function change_id(id) {
 var escalable_img;
 var anterior_alto, diferencia_alto;
 var anterior_acho, diferencia_ancho;
-var zindex_modificado = [] 
+var zindex_modificado_id = [] 
+var z_m_id_length = zindex_modificado_id.length
 var zindex_img = [] 
 
 function attr(value, id) {
@@ -353,7 +367,28 @@ function attr(value, id) {
       img_puntual.style.opacity = value;
       break;
     case "z":
-      img_puntual.style.zIndex = value;
+      // img_puntual.style.zIndex = value;
+      var index
+      
+      if(zindex_modificado_id.includes(img_puntual.id.replace("_img_externa",""))){
+         index = zindex_modificado_id.indexOf(id_seleccionador.value);
+
+          if (index > -1) {
+            escalable_id.splice(index, 1);
+          }
+
+          zindex_img[index] = value
+
+          // console.log(index, zindex_img)
+          // console.log("Esta dentro del array")
+        }else{
+          z_m_id_length = zindex_modificado_id.length;
+          zindex_modificado_id[z_m_id_length] = img_puntual.id.replace("_img_externa","")
+          zindex_img[z_m_id_length] = value
+
+          // console.log(zindex_modificado_id, zindex_img);
+          // console.log("No esta dentro del array")
+      }
       
       break;
     default:
