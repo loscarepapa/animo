@@ -167,10 +167,10 @@ var index_before;
       img_watch_externa.className = "img_watch";
 
       img_watch_interna.innerHTML = `
-        <div class="alto_1" draggable="true"></div>
-        <div class="alto_2" draggable="true"></div>
-        <div class="ancho_1" draggable="true"></div>
-        <div class="ancho_2" draggable="true"></div>`;
+        <div class="alto_1" id="al_1" draggable="true"></div>
+        <div class="alto_2" id="al_2" draggable="true"></div>
+        <div class="ancho_1" id="an_1" draggable="true"></div>
+        <div class="ancho_2" id="an_2" draggable="true"></div>`;
 
       id_seleccionador.style.display = "inline-block";
       tabla.style.display = "inline-block";
@@ -222,10 +222,10 @@ var index_before;
       img_watch_externa.style.zIndex = z_index;
 
       img_watch_interna.innerHTML = `
-        <div class="alto_1" draggable="true"></div>
-        <div class="alto_2" draggable="true"></div>
-        <div class="ancho_1" draggable="true"></div>
-        <div class="ancho_2" draggable="true"></div>`;
+        <div class="alto_1" id="al_1" draggable="true"></div>
+        <div class="alto_2" id="al_2" draggable="true"></div>
+        <div class="ancho_1" id="an_1" draggable="true"></div>
+        <div class="ancho_2" id="an_2" draggable="true"></div>`;
 
       document.getElementById(img_puntual.id.replace("_img_externa","")).setAttribute("draggable", "true");
 
@@ -275,12 +275,21 @@ var index_before;
 }
 
 function change_id(id) {
-  watch(id);
+  if (
+    id >= 0 &&
+    id <= total_imagenes - 1 &&
+    parseInt(img_puntual.id.replace("_img_externa")) != id
+  ) {
+    watch(id);
+  }
+  console.log(id, total_imagenes);
 }
 
 var escalable_img;
 var anterior_alto, diferencia_alto;
 var anterior_acho, diferencia_ancho;
+var zindex_modificado = [] 
+var zindex_img = [] 
 
 function attr(value, id) {
   switch (id) {
@@ -345,6 +354,7 @@ function attr(value, id) {
       break;
     case "z":
       img_puntual.style.zIndex = value;
+      
       break;
     default:
       break;
@@ -365,9 +375,39 @@ var img_press;
 var position_mouse_img_x, position_mouse_img_y;
 var resto_x, resto_y;
 
+var puntos = false
+
 document.addEventListener("dragstart", function(event) {
+  
+
+  switch (event.target.id) {
+    case "al_1":
+      console.log("Es el alto 1");
+      puntos = true
+      break;
+    case "al_2":
+      console.log("Es el alto 2");
+      puntos = true
+      break;
+    case "an_1":
+      console.log("Es el ancho 1");
+      puntos = true
+      break;
+    case "an_2":
+      console.log("Es el ancho 2");
+      puntos = true
+      break;
+
+    default:
+    puntos = false
+      break;
+  }
+
+
   var x, y;
   var img_x, img_y;
+
+if(puntos == false){
 
   x = window.event.clientX;
   img_x = parseInt(
@@ -382,15 +422,20 @@ document.addEventListener("dragstart", function(event) {
   resto_y = y - img_y;
 
   img_press = document.getElementById(`${event.target.id}_img_externa`);
-  // console.log(img_press)
+
+}
+
+
 });
 
 document.addEventListener("dragend", function(event) {
-  if (img_press && img_press.className === "img_watch") {
-    img_press.style.left = `${window.event.clientX - resto_x}px`;
-    img_press.style.top = `${window.event.clientY - resto_y}px`;
+  if(puntos == false){
+    if (img_press && img_press.className === "img_watch") {
+      img_press.style.left = `${window.event.clientX - resto_x}px`;
+      img_press.style.top = `${window.event.clientY - resto_y}px`;
+    }
   }
-  // console.log(window.event.clientX, window.event.clientY)
+
 });
 //
 
