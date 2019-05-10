@@ -446,7 +446,6 @@ document.addEventListener("dragstart", function(event) {
       break;
   }
 
-
   var x, y;
   var img_x, img_y;
 
@@ -476,6 +475,8 @@ document.addEventListener("dragend", function(event) {
     if (img_press && img_press.className === "img_watch") {
       img_press.style.left = `${window.event.clientX - resto_x}px`;
       img_press.style.top = `${window.event.clientY - resto_y}px`;
+      x.value = parseInt(img_press.style.left.replace("px", ""))
+      y.value = parseInt(img_press.style.top.replace("px", ""))
     }
   }else{
     
@@ -483,32 +484,93 @@ document.addEventListener("dragend", function(event) {
     switch (event.target.id) {
       case "al_1":
         console.log("Es el alto 1");
-        var alto_img = parseInt(img_puntual.style.height.replace("px", ""));
-        var top_img = parseInt(img_puntual.style.top.replace("px", ""));
-        img_puntual.style.height = `${alto_img + (init_pnt_y_1 - window.event.clientY)}px`
-        img_puntual.style.top = `${top_img - (init_pnt_y_1 - window.event.clientY)}px`
-        alto.value = parseInt(img_puntual.style.height.replace("px",""))
+        if (document.getElementById("emparejar").className =="emparejar_activo") {
+              
+              var alto_img = parseInt(img_puntual.style.height.replace("px", ""));
+              var top_img = parseInt(img_puntual.style.top.replace("px", ""));
+              var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
+              var left_img = parseInt(img_puntual.style.left.replace("px", ""));
+
+              img_puntual.style.height = `${alto_img + (init_pnt_y_1 - window.event.clientY)}px`
+              img_puntual.style.top = `${top_img - (init_pnt_y_1 - window.event.clientY)}px`
+              img_puntual.style.width = `${ancho_img + (init_pnt_y_1 - window.event.clientY)}px`
+              img_puntual.style.left = `${left_img - (init_pnt_y_1 - window.event.clientY)}px`
+
+              alto.value = parseInt(img_puntual.style.height.replace("px",""))
+              ancho.value = parseInt(img_puntual.style.width.replace("px",""))
+            } else {
+              var alto_img = parseInt(img_puntual.style.height.replace("px", ""));
+              var top_img = parseInt(img_puntual.style.top.replace("px", ""));
+              img_puntual.style.height = `${alto_img + (init_pnt_y_1 - window.event.clientY)}px`
+              img_puntual.style.top = `${top_img - (init_pnt_y_1 - window.event.clientY)}px`
+              alto.value = parseInt(img_puntual.style.height.replace("px",""))
+            }
+
         break;
       case "al_2":
-        console.log("Es el alto 2");
-        var alto_img = parseInt(img_puntual.style.height.replace("px", ""));
-        img_puntual.style.height = `${alto_img + (window.event.clientY - init_pnt_y_2)}px`
-        alto.value = parseInt(img_puntual.style.height.replace("px",""))
+      console.log("Es el alto 2");
+        // debugger
+            if (document.getElementById("emparejar").className =="emparejar_activo") {
+
+              var alto_img = parseInt(img_puntual.style.height.replace("px", ""));
+              var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
+
+              img_puntual.style.height = `${alto_img + (window.event.clientY - init_pnt_y_2)}px`
+              img_puntual.style.width = `${ancho_img + (window.event.clientY - init_pnt_y_2)}px`
+              alto.value = parseInt(img_puntual.style.height.replace("px",""))
+              ancho.value = parseInt(img_puntual.style.width.replace("px",""))
+              
+            } else {
+              var alto_img = parseInt(img_puntual.style.height.replace("px", ""));
+              img_puntual.style.height = `${alto_img + (window.event.clientY - init_pnt_y_2)}px`
+              alto.value = parseInt(img_puntual.style.height.replace("px",""))
+            }
+            
         
         break;
         case "an_1":
         console.log("Es el ancho 1");
-        var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
-        var left_img = parseInt(img_puntual.style.left.replace("px", ""));
-        img_puntual.style.width = `${ancho_img + (init_pnt_x_2 - window.event.clientX)}px`
-        img_puntual.style.left = `${left_img - (init_pnt_x_2 - window.event.clientX)}px`
-        ancho.value = parseInt(img_puntual.style.width.replace("px",""))
+        if (document.getElementById("emparejar").className =="emparejar_activo") {
+              
+              var alto_img = parseInt(img_puntual.style.height.replace("px", ""));
+              var top_img = parseInt(img_puntual.style.top.replace("px", ""));
+              var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
+              var left_img = parseInt(img_puntual.style.left.replace("px", ""));
+
+              img_puntual.style.height = `${alto_img + (init_pnt_x_2 - window.event.clientX)}px`
+              img_puntual.style.top = `${top_img - (init_pnt_x_2 - window.event.clientX)}px`
+              img_puntual.style.width = `${ancho_img + (init_pnt_x_2 - window.event.clientX)}px`
+              img_puntual.style.left = `${left_img - (init_pnt_x_2 - window.event.clientX)}px`
+
+              alto.value = parseInt(img_puntual.style.height.replace("px",""))
+              ancho.value = parseInt(img_puntual.style.width.replace("px",""))
+            } else {
+              var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
+              var left_img = parseInt(img_puntual.style.left.replace("px", ""));
+              img_puntual.style.width = `${ancho_img + (init_pnt_x_2 - window.event.clientX)}px`
+              img_puntual.style.left = `${left_img - (init_pnt_x_2 - window.event.clientX)}px`
+              ancho.value = parseInt(img_puntual.style.width.replace("px",""))
+            }
+            
         break;
       case "an_2":
         console.log("Es el ancho 2");
-        var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
-        img_puntual.style.width = `${ancho_img + (window.event.clientX - init_pnt_x_1)}px`
-        ancho.value = parseInt(img_puntual.style.width.replace("px",""))
+        if (document.getElementById("emparejar").className =="emparejar_activo") {
+
+              var alto_img = parseInt(img_puntual.style.height.replace("px", ""));
+              var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
+
+              img_puntual.style.height = `${alto_img + (window.event.clientX - init_pnt_x_1)}px`
+              img_puntual.style.width = `${ancho_img + (window.event.clientX - init_pnt_x_1)}px`
+
+              alto.value = parseInt(img_puntual.style.height.replace("px",""))
+              ancho.value = parseInt(img_puntual.style.width.replace("px",""))
+              
+            } else {
+              var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
+              img_puntual.style.width = `${ancho_img + (window.event.clientX - init_pnt_x_1)}px`
+              ancho.value = parseInt(img_puntual.style.width.replace("px",""))
+            }
         break;
 
       default:
@@ -529,6 +591,7 @@ function emparejar_al_an() {
   if (img_puntual) {
     img_w = img_puntual.id;
   }
+
   if (img_w >= 0 && escalable_id.includes(img_w)) {
     // console.log("Esta dentro del array");
     document.getElementById("emparejar").innerHTML = "<i class='fas fa-lock-open'></i>"
@@ -545,6 +608,7 @@ function emparejar_al_an() {
     document
       .getElementById("emparejar")
       .setAttribute("onclick", "borrar_al_an()");
+    
   }
   //   console.log(escalable_id);
 }
