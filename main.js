@@ -412,7 +412,9 @@ var resto_x, resto_y;
 
 var puntos = false
 var init_pnt_x_1
+var init_pnt_x_2
 var init_pnt_y_1
+var init_pnt_y_2
 
 document.addEventListener("dragstart", function(event) {
   
@@ -421,15 +423,17 @@ document.addEventListener("dragstart", function(event) {
     case "al_1":
       console.log("Es el alto 1");
       puntos = true
+      init_pnt_y_1 = window.event.clientY;
       break;
     case "al_2":
       console.log("Es el alto 2");
       puntos = true
-      init_pnt_y_1 = window.event.clientY
+      init_pnt_y_2 = window.event.clientY
       break;
     case "an_1":
       console.log("Es el ancho 1");
       puntos = true
+      init_pnt_x_2 = window.event.clientX
       break;
     case "an_2":
       console.log("Es el ancho 2");
@@ -479,19 +483,32 @@ document.addEventListener("dragend", function(event) {
     switch (event.target.id) {
       case "al_1":
         console.log("Es el alto 1");
+        var alto_img = parseInt(img_puntual.style.height.replace("px", ""));
+        var top_img = parseInt(img_puntual.style.top.replace("px", ""));
+        img_puntual.style.height = `${alto_img + (init_pnt_y_1 - window.event.clientY)}px`
+        img_puntual.style.top = `${top_img - (init_pnt_y_1 - window.event.clientY)}px`
+        alto.value = parseInt(img_puntual.style.height.replace("px",""))
         break;
       case "al_2":
         console.log("Es el alto 2");
         var alto_img = parseInt(img_puntual.style.height.replace("px", ""));
-        img_puntual.style.height = `${alto_img + (window.event.clientY - init_pnt_y_1)}px`
+        img_puntual.style.height = `${alto_img + (window.event.clientY - init_pnt_y_2)}px`
+        alto.value = parseInt(img_puntual.style.height.replace("px",""))
+        
         break;
-      case "an_1":
+        case "an_1":
         console.log("Es el ancho 1");
+        var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
+        var left_img = parseInt(img_puntual.style.left.replace("px", ""));
+        img_puntual.style.width = `${ancho_img + (init_pnt_x_2 - window.event.clientX)}px`
+        img_puntual.style.left = `${left_img - (init_pnt_x_2 - window.event.clientX)}px`
+        ancho.value = parseInt(img_puntual.style.width.replace("px",""))
         break;
       case "an_2":
         console.log("Es el ancho 2");
         var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
         img_puntual.style.width = `${ancho_img + (window.event.clientX - init_pnt_x_1)}px`
+        ancho.value = parseInt(img_puntual.style.width.replace("px",""))
         break;
 
       default:
