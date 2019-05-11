@@ -109,7 +109,7 @@ function watch(id) {
       img_puntual.className = "img";
       img_puntual.style.zIndex = index_before;
       index_before = "" ;
-      
+
     document.getElementById("al_1").style.display = "none";
     document.getElementById("al_2").style.display = "none";
     document.getElementById("an_1").style.display = "none";
