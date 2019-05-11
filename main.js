@@ -13,10 +13,10 @@ function mostrar() {
   if (file) {
     reader.readAsDataURL(archivo);
     reader.onloadend = function() {
+      // <div class="imagenes_puntos" id="${total_imagenes}_interna" draggeble='false'>
+      // </div>
       lienzo.innerHTML += `
-        <div class="img" id="${total_imagenes}_img_externa" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};' draggeble='false'>
-          <div class="imagenes_puntos" id="${total_imagenes}_interna" draggeble='false'>
-          </div>
+        <div class="img" id="${total_imagenes}_img_externa" style='left:100px;top:100px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};' draggeble='false'>
           <img src="${reader.result}" id="${total_imagenes}" class="img_interna"  onclick='watch(this.id)' draggable='false'>
         </div>`;
       z_index++;
@@ -57,7 +57,7 @@ function mostrar() {
     // img_puntual.setAttribute("draggable", "false");
     document.getElementById(img_puntual.id.replace("_img_externa","")).setAttribute("draggable","false")
     
-    document.getElementById(`${img_puntual.id.replace("_img_externa","")}_interna`).innerHTML = "";
+    // document.getElementById(`${img_puntual.id.replace("_img_externa","")}_interna`).innerHTML = "";
     
     img_puntual.style.zIndex = index_before;
     index_before = "";
@@ -72,13 +72,13 @@ function mostrar() {
   //*
 }
 
-var img_puntual;
+var img_puntual
 var img_puntual_img;
 var img_puntual_interna;
 var id_seleccionador = document.getElementById("id_imagen");
 var tabla = document.getElementById("tabla");
 var rotacion = document.getElementById("r"),
-    alto = document.getElementById("al"),
+alto = document.getElementById("al"),
     ancho = document.getElementById("an"),
     x = document.getElementById("x"),
     y = document.getElementById("y"),
@@ -86,17 +86,34 @@ var rotacion = document.getElementById("r"),
     zindex = document.getElementById("z");
 var index_before;
   
-  function watch(id) {
-    //¿ if selected the same the it deleted
-    // debugger
+function watch(id) {
+  //¿ if selected the same the it deleted
+    debugger
+    
+    // if(img_puntual)
+    
+    // console.log(
+      
+    //   `${id}_img_externa` == img_puntual.id.replace("_img_externa",""),
+    //   document.getElementById(`${id}_img_externa`) , img_puntual
+    // );
+    console.log(
+      document.getElementById(`${id}_img_externa`) == img_puntual,
+      img_puntual,
+      document.getElementById(`${id}_img_externa`)
+    );
+
+
     if (document.getElementById(`${id}_img_externa`) == img_puntual) {
       document.getElementById(`${id}`).setAttribute("draggable", "false");
       img_puntual.className = "img";
       img_puntual.style.zIndex = index_before;
       index_before = "" ;
-
-
-    document.getElementById(`${id}_interna`).innerHTML = "";
+      
+    document.getElementById("al_1").style.display = "none";
+    document.getElementById("al_2").style.display = "none";
+    document.getElementById("an_1").style.display = "none";
+    document.getElementById("an_2").style.display = "none";
 
     img_puntual = "";
     id_seleccionador.value = "";
@@ -138,10 +155,10 @@ var index_before;
     id_seleccionador.value = id;
 
     var img_watch_externa = document.getElementById(`${id}_img_externa`);
-    var img_watch_interna = document.getElementById(`${id}_interna`)
+    // var img_watch_interna = document.getElementById(`${id}_interna`)
     var img_watch_img = document.getElementById(id)
     // console.log(img_watch_interna)
-
+    
     var style_rotate = img_watch_externa.style.transform;
     var style_alto = img_watch_externa.style.height;
     var style_ancho = img_watch_externa.style.width;
@@ -159,7 +176,7 @@ var index_before;
       
       img_puntual.style.zIndex = index_before;
       
-      document.getElementById(`${img_puntual.id.replace("_img_externa","")}_interna`).innerHTML = "";
+      // document.getElementById(`${img_puntual.id.replace("_img_externa","")}_interna`).innerHTML = "";
       
       document.getElementById(img_puntual.id.replace("_img_externa","")).setAttribute("draggable", "false");
       
@@ -174,17 +191,17 @@ var index_before;
       img_watch_externa.style.zIndex = z_index;
 
       img_puntual_img = document.getElementById(`${img_watch_externa.id.replace("_img_externa","")}`);
-      img_puntual_interna = document.getElementById(`${img_watch_externa.id.replace("_img_externa","")}_img_interna`);
+      // img_puntual_interna = document.getElementById(`${img_watch_externa.id.replace("_img_externa","")}_img_interna`);
 
       img_puntual_img.setAttribute("draggable", "true");
 
       img_watch_externa.className = "img_watch";
 
-      img_watch_interna.innerHTML = `
-        <div class="alto_1" id="al_1" draggable="true"></div>
-        <div class="alto_2" id="al_2" draggable="true"></div>
-        <div class="ancho_1" id="an_1" draggable="true"></div>
-        <div class="ancho_2" id="an_2" draggable="true"></div>`;
+      
+    document.getElementById("al_1").style.display = "none";
+    document.getElementById("al_2").style.display = "none";
+    document.getElementById("an_1").style.display = "none";
+    document.getElementById("an_2").style.display = "none";
 
       id_seleccionador.style.display = "inline-block";
       tabla.style.display = "inline-block";
@@ -234,14 +251,24 @@ var index_before;
 
       index_before = img_watch_externa.style.zIndex
       img_watch_externa.style.zIndex = z_index;
+      lienzo.innerHTML += `
+        <div class="alto_1" style="
+        left:${(parseInt(style_x.replace("px","")) + (parseInt(style_ancho.replace("px","")) / 2) - 5)}px;
+        top:${parseInt(style_alto.replace("px","")) - 5}px" id="al_1" draggable="true"></div>
 
-      img_watch_interna.innerHTML = `
-        <div class="alto_1" id="al_1" draggable="true"></div>
-        <div class="alto_2" id="al_2" draggable="true"></div>
-        <div class="ancho_1" id="an_1" draggable="true"></div>
-        <div class="ancho_2" id="an_2" draggable="true"></div>`;
+        <div class="alto_2" style="
+        left:${(parseInt(style_x.replace("px","")) + (parseInt(style_ancho.replace("px","")) / 2) - 5)}px;
+        top:${(parseInt(style_y.replace("px","")) + parseInt(style_alto.replace("px","")) - 5)}px" id="al_2" draggable="true"></div>
 
-      document.getElementById(img_puntual.id.replace("_img_externa","")).setAttribute("draggable", "true");
+        <div class="ancho_1" style="
+        top:${(parseInt(style_y.replace("px","")) + (parseInt(style_alto.replace("px","")) / 2) - 5)}px;
+        left:${(parseInt(style_x.replace("px","")) - 5)}px" id="an_1" draggable="true"></div>
+
+        <div class="ancho_2" style="
+        top:${(parseInt(style_y.replace("px","")) + (parseInt(style_alto.replace("px","")) / 2) - 5)}px;
+        left:${(parseInt(style_x.replace("px","")) + parseInt(style_alto.replace("px","")) - 5)}px" id="an_2" draggable="true"></div>`;
+
+      // document.getElementById(img_puntual.id.replace("_img_externa","")).setAttribute("draggable", "true");
 
       if (escalable_id.includes(img_puntual.id.replace("_img_externa",""))) {
         document.getElementById("emparejar").className = "emparejar_activo";
