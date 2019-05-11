@@ -54,7 +54,8 @@ function mostrar() {
     }
     
     img_puntual.className = "img";
-    img_puntual.setAttribute("draggable", "false");
+    // img_puntual.setAttribute("draggable", "false");
+    document.getElementById(img_puntual.id.replace("_img_externa","")).setAttribute("draggable","false")
     
     document.getElementById(`${img_puntual.id.replace("_img_externa","")}_interna`).innerHTML = "";
     
@@ -319,21 +320,17 @@ function attr(value, id) {
       img_puntual.style.transform = `rotateZ(${value}deg)`;
       break;
     case "al":
-      if (
-        document.getElementById("emparejar").className == "emparejar_activo"
-      ) {
+      if (document.getElementById("emparejar").className == "emparejar_activo") {
         anterior_alto = parseInt(img_puntual.style.height.replace("px", ""));
 
         diferencia_alto = value - anterior_alto;
 
         img_puntual.style.height = `${value}px`;
 
-        img_puntual.style.width = `${parseInt(
-          document.getElementById("an").value
-        ) + diferencia_alto}px`;
+        img_puntual.style.width = `${(parseInt(document.getElementById("an").value) * value) / anterior_alto}px`;
 
-        document.getElementById("an").value =
-          parseInt(document.getElementById("an").value) + diferencia_alto;
+        document.getElementById("an").value = parseInt(img_puntual.style.width.replace("px",""));
+
         escalable_img = value;
       } else {
         img_puntual.style.height = `${value}px`;
@@ -342,21 +339,17 @@ function attr(value, id) {
       break;
 
     case "an":
-      if (
-        document.getElementById("emparejar").className == "emparejar_activo"
-      ) {
+      if (document.getElementById("emparejar").className == "emparejar_activo") {
         anterior_ancho = parseInt(img_puntual.style.width.replace("px", ""));
 
         diferencia_ancho = value - anterior_ancho;
 
         img_puntual.style.width = `${value}px`;
 
-        img_puntual.style.height = `${parseInt(
-          document.getElementById("al").value
-        ) + diferencia_ancho}px`;
+        img_puntual.style.height = `${(parseInt(document.getElementById("al").value) * value) / anterior_ancho}px`;
 
-        document.getElementById("al").value =
-          parseInt(document.getElementById("al").value) + diferencia_ancho;
+        document.getElementById("al").value = parseInt(img_puntual.style.height.replace("px",""));
+
         escalable_img = value;
       } else {
         img_puntual.style.width = `${value}px`;
@@ -378,15 +371,11 @@ function attr(value, id) {
           }
 
           zindex_img[index] = value
-
-          // console.log(index, zindex_img)
           // console.log("Esta dentro del array")
         }else{
           z_m_id_length = zindex_modificado_id.length;
           zindex_modificado_id[z_m_id_length] = img_puntual.id.replace("_img_externa","")
           zindex_img[z_m_id_length] = value
-
-          // console.log(zindex_modificado_id, zindex_img);
           // console.log("No esta dentro del array")
       }
       
@@ -493,8 +482,9 @@ document.addEventListener("dragend", function(event) {
 
               img_puntual.style.height = `${alto_img + (init_pnt_y_1 - window.event.clientY)}px`
               img_puntual.style.top = `${top_img - (init_pnt_y_1 - window.event.clientY)}px`
-              img_puntual.style.width = `${ancho_img + (init_pnt_y_1 - window.event.clientY)}px`
-              img_puntual.style.left = `${left_img - (init_pnt_y_1 - window.event.clientY)}px`
+
+              img_puntual.style.width = `${(ancho_img * parseInt(img_puntual.style.height.replace("px",""))) / alto_img}px`
+              img_puntual.style.left = `${left_img - (parseInt(img_puntual.style.width.replace("px","")) - ancho_img)}px`
 
               alto.value = parseInt(img_puntual.style.height.replace("px",""))
               ancho.value = parseInt(img_puntual.style.width.replace("px",""))
@@ -516,7 +506,8 @@ document.addEventListener("dragend", function(event) {
               var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
 
               img_puntual.style.height = `${alto_img + (window.event.clientY - init_pnt_y_2)}px`
-              img_puntual.style.width = `${ancho_img + (window.event.clientY - init_pnt_y_2)}px`
+              img_puntual.style.width = `${(ancho_img * parseInt(img_puntual.style.height.replace("px",""))) / alto_img}px`
+
               alto.value = parseInt(img_puntual.style.height.replace("px",""))
               ancho.value = parseInt(img_puntual.style.width.replace("px",""))
               
@@ -537,10 +528,11 @@ document.addEventListener("dragend", function(event) {
               var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
               var left_img = parseInt(img_puntual.style.left.replace("px", ""));
 
-              img_puntual.style.height = `${alto_img + (init_pnt_x_2 - window.event.clientX)}px`
-              img_puntual.style.top = `${top_img - (init_pnt_x_2 - window.event.clientX)}px`
               img_puntual.style.width = `${ancho_img + (init_pnt_x_2 - window.event.clientX)}px`
               img_puntual.style.left = `${left_img - (init_pnt_x_2 - window.event.clientX)}px`
+
+              img_puntual.style.height = `${(alto_img * parseInt(img_puntual.style.width.replace("px",""))) / ancho_img}px`
+              img_puntual.style.top = `${top_img - (parseInt(img_puntual.style.height.replace("px","")) - alto_img)}px`
 
               alto.value = parseInt(img_puntual.style.height.replace("px",""))
               ancho.value = parseInt(img_puntual.style.width.replace("px",""))
@@ -557,11 +549,11 @@ document.addEventListener("dragend", function(event) {
         console.log("Es el ancho 2");
         if (document.getElementById("emparejar").className =="emparejar_activo") {
 
-              var alto_img = parseInt(img_puntual.style.height.replace("px", ""));
               var ancho_img = parseInt(img_puntual.style.width.replace("px", ""));
+              var alto_img = parseInt(img_puntual.style.height.replace("px", ""));
 
-              img_puntual.style.height = `${alto_img + (window.event.clientX - init_pnt_x_1)}px`
               img_puntual.style.width = `${ancho_img + (window.event.clientX - init_pnt_x_1)}px`
+              img_puntual.style.height = `${(alto_img * parseInt(img_puntual.style.width.replace("px",""))) / ancho_img}px`
 
               alto.value = parseInt(img_puntual.style.height.replace("px",""))
               ancho.value = parseInt(img_puntual.style.width.replace("px",""))
