@@ -1,4 +1,5 @@
 var lienzo = document.getElementById("lienzo");
+var lienzo_puntos = document.getElementById("puntos");
 var total_imagenes = 0;
 var total_de_capas = [];
 var num_atributos_de_imagenes = [];
@@ -16,7 +17,7 @@ function mostrar() {
       // <div class="imagenes_puntos" id="${total_imagenes}_interna" draggeble='false'>
       // </div>
       lienzo.innerHTML += `
-        <div class="img" id="${total_imagenes}_img_externa" style='left:100px;top:100px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};' draggeble='false'>
+        <div class="img" id="${total_imagenes}_img_externa" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};' draggeble='false'>
           <img src="${reader.result}" id="${total_imagenes}" class="img_interna"  onclick='watch(this.id)' draggable='false'>
         </div>`;
       z_index++;
@@ -30,6 +31,9 @@ function mostrar() {
 
 //* ask if have something selected and deleted it
   if (img_puntual) {
+    var img = document.getElementById(`${img_puntual}_img_externa`)
+    var img_local_interna = document.getElementById(img_puntual)
+
     rotacion.style.display = "none";
     alto.style.display = "none";
     ancho.style.display = "none";
@@ -53,13 +57,15 @@ function mostrar() {
       document.getElementById(`title_attribute${i}`).style.display = "none";
     }
     
-    img_puntual.className = "img";
+    img.className = "img";
     // img_puntual.setAttribute("draggable", "false");
-    document.getElementById(img_puntual.id.replace("_img_externa","")).setAttribute("draggable","false")
+    img_local_interna.setAttribute("draggable","false")
     
-    // document.getElementById(`${img_puntual.id.replace("_img_externa","")}_interna`).innerHTML = "";
+    var lienzo_puntos = document.getElementById("puntos");
     
-    img_puntual.style.zIndex = index_before;
+    lienzo_puntos.innerHTML = "";
+    
+    img.style.zIndex = index_before;
     index_before = "";
 
     for (let i = 0; i < zindex_modificado_id.length; i++) {
@@ -72,7 +78,7 @@ function mostrar() {
   //*
 }
 
-var img_puntual
+var img_puntual = null
 var img_puntual_img;
 var img_puntual_interna;
 var id_seleccionador = document.getElementById("id_imagen");
@@ -86,36 +92,39 @@ alto = document.getElementById("al"),
     zindex = document.getElementById("z");
 var index_before;
   
+// debugger
+// if(id == img_puntual){
+
+//   console.log("Es el mismo")
+
+// }else{
+
+//     if(img_puntual != null){
+//       console.log("habia otro")
+//       img_puntual = id
+//     }else{
+//       console.log("no habia otro")
+//       img_puntual = id
+//     }
+
+// }
+
 function watch(id) {
   //¿ if selected the same the it deleted
-    debugger
-    
-    // if(img_puntual)
-    
-    // console.log(
-      
-    //   `${id}_img_externa` == img_puntual.id.replace("_img_externa",""),
-    //   document.getElementById(`${id}_img_externa`) , img_puntual
-    // );
-    console.log(
-      document.getElementById(`${id}_img_externa`) == img_puntual,
-      img_puntual,
-      document.getElementById(`${id}_img_externa`)
-    );
+  // debugger
+var lienzo_puntos = document.getElementById("puntos");
 
-
-    if (document.getElementById(`${id}_img_externa`) == img_puntual) {
+    if (id == img_puntual) {
+      console.log("Es el mismo")
+      var img = document.getElementById(`${img_puntual}_img_externa`);
       document.getElementById(`${id}`).setAttribute("draggable", "false");
-      img_puntual.className = "img";
-      img_puntual.style.zIndex = index_before;
+      img.className = "img";
+      img.style.zIndex = index_before;
       index_before = "" ;
       
-    document.getElementById("al_1").style.display = "none";
-    document.getElementById("al_2").style.display = "none";
-    document.getElementById("an_1").style.display = "none";
-    document.getElementById("an_2").style.display = "none";
+    lienzo_puntos.innerHTML = "";
 
-    img_puntual = "";
+    img_puntual = null;
     id_seleccionador.value = "";
     id_seleccionador.style.display = "none";
     tabla.style.display = "none";
@@ -168,20 +177,21 @@ function watch(id) {
     var style_zindex = img_watch_externa.style.zIndex;
 
   //* if had other image in the variable delete it
-    if (img_puntual) {
-      
-      img_puntual.className = "img";
+    if (img_puntual != null) {
+      console.log("Habia otro")
+      var img = document.getElementById(`${img_puntual}_img_externa`);
+      img.className = "img";
       
       console.log(index_before)
       
-      img_puntual.style.zIndex = index_before;
+      img.style.zIndex = index_before;
       
       // document.getElementById(`${img_puntual.id.replace("_img_externa","")}_interna`).innerHTML = "";
       
-      document.getElementById(img_puntual.id.replace("_img_externa","")).setAttribute("draggable", "false");
+      document.getElementById(img_puntual).setAttribute("draggable", "false");
       
       //! before of this id for delete the image previous and after is for add to the new image
-      img_puntual = img_watch_externa;
+      img_puntual = img_watch_externa.id.replace("_img_externa", "");
 
           for (let i = 0; i < zindex_modificado_id.length; i++) {
           document.getElementById(`${zindex_modificado_id[i]}_img_externa`).style.zIndex = zindex_img[i]
@@ -198,15 +208,32 @@ function watch(id) {
       img_watch_externa.className = "img_watch";
 
       
-    document.getElementById("al_1").style.display = "none";
-    document.getElementById("al_2").style.display = "none";
-    document.getElementById("an_1").style.display = "none";
-    document.getElementById("an_2").style.display = "none";
+      var alto_local = img_watch_externa.style.height;
+      var ancho_local = img_watch_externa.style.width;
+      var top_local = img_watch_externa.style.top;
+      var left_local = img_watch_externa.style.left;
+
+      lienzo_puntos.innerHTML = `
+        <div class="alto_1" style="
+        left:${(parseInt(left_local.replace("px","")) + (parseInt(ancho_local.replace("px","")) / 2) - 5)}px;
+        top:${parseInt(top_local.replace("px","")) - 5}px" id="al_1" draggable="true"></div>
+
+        <div class="alto_2" style="
+        left:${(parseInt(left_local.replace("px","")) + (parseInt(ancho_local.replace("px","")) / 2) - 5)}px;
+        top:${(parseInt(top_local.replace("px","")) + parseInt(alto_local.replace("px","")) - 5)}px" id="al_2" draggable="true"></div>
+
+        <div class="ancho_1" style="
+        top:${(parseInt(top_local.replace("px","")) + (parseInt(alto_local.replace("px","")) / 2) - 5)}px;
+        left:${(parseInt(left_local.replace("px","")) - 5)}px" id="an_1" draggable="true"></div>
+
+        <div class="ancho_2" style="
+        top:${(parseInt(top_local.replace("px","")) + (parseInt(alto_local.replace("px","")) / 2) - 5)}px;
+        left:${(parseInt(left_local.replace("px","")) + parseInt(alto_local.replace("px","")) - 5)}px" id="an_2" draggable="true"></div>`;
 
       id_seleccionador.style.display = "inline-block";
       tabla.style.display = "inline-block";
 
-      if (escalable_id.includes(img_puntual.id.replace("_img_externa",""))) {
+      if (escalable_id.includes(img_puntual)) {
         document.getElementById("emparejar").className = "emparejar_activo";
             document.getElementById("emparejar").innerHTML = "<i class='fas fa-lock'></i>"
         document
@@ -246,15 +273,17 @@ function watch(id) {
       //*
       //¿ if it not added to the variable
     } else {
-      img_puntual = img_watch_externa;
+      console.log("No habia otro")
+      
+      img_puntual = img_watch_externa.id.replace("_img_externa","");
       document.getElementById(img_watch_externa.id).className = "img_watch";
 
       index_before = img_watch_externa.style.zIndex
       img_watch_externa.style.zIndex = z_index;
-      lienzo.innerHTML += `
+      lienzo_puntos.innerHTML = `
         <div class="alto_1" style="
         left:${(parseInt(style_x.replace("px","")) + (parseInt(style_ancho.replace("px","")) / 2) - 5)}px;
-        top:${parseInt(style_alto.replace("px","")) - 5}px" id="al_1" draggable="true"></div>
+        top:${parseInt(style_y.replace("px","")) - 5}px" id="al_1" draggable="true"></div>
 
         <div class="alto_2" style="
         left:${(parseInt(style_x.replace("px","")) + (parseInt(style_ancho.replace("px","")) / 2) - 5)}px;
@@ -268,9 +297,9 @@ function watch(id) {
         top:${(parseInt(style_y.replace("px","")) + (parseInt(style_alto.replace("px","")) / 2) - 5)}px;
         left:${(parseInt(style_x.replace("px","")) + parseInt(style_alto.replace("px","")) - 5)}px" id="an_2" draggable="true"></div>`;
 
-      // document.getElementById(img_puntual.id.replace("_img_externa","")).setAttribute("draggable", "true");
+      document.getElementById(img_puntual).setAttribute("draggable", "true");
 
-      if (escalable_id.includes(img_puntual.id.replace("_img_externa",""))) {
+      if (escalable_id.includes(img_puntual)) {
         document.getElementById("emparejar").className = "emparejar_activo";
             document.getElementById("emparejar").innerHTML = "<i class='fas fa-lock'></i>"
         document
@@ -312,6 +341,7 @@ function watch(id) {
     }
     //¿
   }
+   
   // console.log(id)
 }
 
@@ -487,12 +517,38 @@ if(puntos == false){
 });
 
 document.addEventListener("dragend", function(event) {
+  // debugger
   if(puntos == false){
     if (img_press && img_press.className === "img_watch") {
+      
+      var lienzo_puntos = document.getElementById("puntos");
+
       img_press.style.left = `${window.event.clientX - resto_x}px`;
       img_press.style.top = `${window.event.clientY - resto_y}px`;
       x.value = parseInt(img_press.style.left.replace("px", ""))
       y.value = parseInt(img_press.style.top.replace("px", ""))
+      
+      var alto = img_press.style.height;
+      var ancho = img_press.style.width;
+      var top = img_press.style.top;
+      var left = img_press.style.left;
+
+      lienzo_puntos.innerHTML = `
+        <div class="alto_1" style="
+        left:${(parseInt(left.replace("px","")) + (parseInt(ancho.replace("px","")) / 2) - 5)}px;
+        top:${parseInt(top.replace("px","")) - 5}px" id="al_1" draggable="true"></div>
+
+        <div class="alto_2" style="
+        left:${(parseInt(left.replace("px","")) + (parseInt(ancho.replace("px","")) / 2) - 5)}px;
+        top:${(parseInt(top.replace("px","")) + parseInt(alto.replace("px","")) - 5)}px" id="al_2" draggable="true"></div>
+
+        <div class="ancho_1" style="
+        top:${(parseInt(top.replace("px","")) + (parseInt(alto.replace("px","")) / 2) - 5)}px;
+        left:${(parseInt(left.replace("px","")) - 5)}px" id="an_1" draggable="true"></div>
+
+        <div class="ancho_2" style="
+        top:${(parseInt(top.replace("px","")) + (parseInt(alto.replace("px","")) / 2) - 5)}px;
+        left:${(parseInt(left.replace("px","")) + parseInt(alto.replace("px","")) - 5)}px" id="an_2" draggable="true"></div>`;
     }
   }else{
     
@@ -650,3 +706,4 @@ function borrar_al_an() {
   }
   //   console.log("Borrar del array");
 }
+
