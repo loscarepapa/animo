@@ -1,0 +1,22 @@
+{
+  "name": "animo",
+  "version": "1.0.0",
+  "description": "A web site for animate 2D\u001b[D\u001b[D\u001b[ion2\u001b[D \u001b[C\u001b[22\u001b[D2D",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loscarepapa/animo.git"
+  },
+  "author": "Martin Alejandro Rodriguez Hernandez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/loscarepapa/animo/issues"
+  },
+  "homepage": "https://github.com/loscarepapa/animo#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
+}
