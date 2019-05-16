@@ -106,6 +106,20 @@ function mostrar() {
   //*
 }
 
+var img_mayor_index;
+var num_mayor = 0;
+
+function z_index_puntos() {
+  num_mayor = 0
+  for (let i = 0; i < total_de_capas.length; i++) {
+    var z_index = parseInt(document.getElementById(`${i}_img_externa`).style.zIndex)
+    if (z_index >= num_mayor) {
+      num_mayor = z_index + 1
+      img_mayor_index = num_mayor;
+    }
+  }
+}
+
 function vertices() {
   var img = document.getElementById(`${img_puntual}_img_externa`);
   var alto = img.style.height;
@@ -115,19 +129,23 @@ function vertices() {
 
   return `<div class="alto_1" style="
         left:${parseInt(left.replace("px", "")) + parseInt(ancho.replace("px", "")) / 2 - 5}px;
-        top:${parseInt(top.replace("px", "")) - 5}px" id="al_1" draggable="true"></div>
+        top:${parseInt(top.replace("px", "")) - 5}px;
+        z-index:${img_mayor_index}" id="al_1" draggable="true"></div>
 
         <div class="alto_2" style="
         left:${parseInt(left.replace("px", "")) + parseInt(ancho.replace("px", "")) / 2 - 5}px;
-        top:${parseInt(top.replace("px", "")) + parseInt(alto.replace("px", "")) - 5}px" id="al_2" draggable="true"></div>
+        top:${parseInt(top.replace("px", "")) + parseInt(alto.replace("px", "")) - 5}px;
+        z-index:${img_mayor_index}" id="al_2" draggable="true"></div>
 
         <div class="ancho_1" style="
         top:${parseInt(top.replace("px", "")) + parseInt(alto.replace("px", "")) / 2 - 5}px;
-        left:${parseInt(left.replace("px", "")) - 5}px" id="an_1" draggable="true"></div>
+        left:${parseInt(left.replace("px", "")) - 5}px;
+        z-index:${img_mayor_index}" id="an_1" draggable="true"></div>
 
         <div class="ancho_2" style="
         top:${parseInt(top.replace("px", "")) + parseInt(alto.replace("px", "")) / 2 - 5}px;
-        left:${parseInt(left.replace("px", "")) + parseInt(ancho.replace("px", "")) - 5}px" id="an_2" draggable="true"></div>`;
+        left:${parseInt(left.replace("px", "")) + parseInt(ancho.replace("px", "")) - 5}px;
+        z-index:${img_mayor_index}" id="an_2" draggable="true"></div>`;
 }
 
 var img_puntual = null;
@@ -222,6 +240,8 @@ function watch(id) {
 
       img_watch_externa.className = "img_watch";
 
+      z_index_puntos();
+
       lienzo_puntos.innerHTML = vertices()
 
       id_seleccionador.style.display = "inline-block";
@@ -269,6 +289,8 @@ function watch(id) {
       document.getElementById(img_watch_externa.id).className = "img_watch";
 
       index_before = img_watch_externa.style.zIndex;
+
+      z_index_puntos();
 
       lienzo_puntos.innerHTML = vertices()
 
@@ -336,7 +358,7 @@ var zindex_img = [];
 function attr(value, id) {
   // debugger
   var img = document.getElementById(`${img_puntual}_img_externa`);
-  
+
   switch (id) {
     case "x":
       img.style.left = `${value}px`;
@@ -346,22 +368,18 @@ function attr(value, id) {
       img.style.top = `${value}px`;
       break;
 
-      case "r":
+    case "r":
       img.style.transform = `rotateZ(${value}deg)`;
       break;
     case "al":
-      if (
-        document.getElementById("emparejar").className == "emparejar_activo"
-      ) {
+      if (document.getElementById("emparejar").className == "emparejar_activo") {
         anterior_alto = parseInt(img.style.height.replace("px", ""));
 
         diferencia_alto = value - anterior_alto;
 
         img.style.height = `${value}px`;
-        
-        img.style.width = `${(parseInt(document.getElementById("an").value) *
-        value) /
-        anterior_alto}px`;
+
+        img.style.width = `${(parseInt(document.getElementById("an").value) * value) / anterior_alto}px`;
 
         document.getElementById("an").value = parseInt(
           img.style.width.replace("px", "")
@@ -375,18 +393,14 @@ function attr(value, id) {
       break;
 
     case "an":
-      if (
-        document.getElementById("emparejar").className == "emparejar_activo"
-      ) {
+      if (document.getElementById("emparejar").className == "emparejar_activo") {
         anterior_ancho = parseInt(img.style.width.replace("px", ""));
 
         diferencia_ancho = value - anterior_ancho;
 
         img.style.width = `${value}px`;
 
-        img.style.height = `${(parseInt(document.getElementById("al").value) *
-          value) /
-          anterior_ancho}px`;
+        img.style.height = `${(parseInt(document.getElementById("al").value) * value) / anterior_ancho}px`;
 
         document.getElementById("al").value = parseInt(
           img.style.height.replace("px", "")
@@ -398,14 +412,16 @@ function attr(value, id) {
       }
 
       break;
+
     case "o":
       img.style.opacity = value;
       break;
-    case "z":
-      
-      img.style.zIndex = value;
 
+    case "z":
+      img.style.zIndex = value;
+      z_index_puntos();
       break;
+
     default:
       break;
   }
