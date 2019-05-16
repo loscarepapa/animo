@@ -19,7 +19,6 @@ function block_none(style) {
     id_seleccionador.value = "";
     id_seleccionador.style.display = "none";
     tabla.style.display = "none";
-
   } else if (style == "inline_block") {
     rotacion.style.display = "inline-block";
     alto.style.display = "inline-block";
@@ -30,7 +29,6 @@ function block_none(style) {
     zindex.style.display = "inline-block";
     id_seleccionador.style.display = "inline-block";
     tabla.style.display = "inline-block";
-
   } else if (style == "inline_block_2") {
     rotacion.style.display = "inline-block";
     alto.style.display = "inline-block";
@@ -39,7 +37,6 @@ function block_none(style) {
     y.style.display = "inline-block";
     opacidad.style.display = "inline-block";
     zindex.style.display = "inline-block";
-
   }
 }
 
@@ -49,7 +46,7 @@ function mostrar() {
   var reader = new FileReader();
   if (file) {
     reader.readAsDataURL(archivo);
-    reader.onloadend = function () {
+    reader.onloadend = function() {
       lienzo.innerHTML += `
         <div class="img" id="${total_imagenes}_img_externa" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};' draggeble='false'>
           <img src="${
@@ -70,7 +67,7 @@ function mostrar() {
     var img = document.getElementById(`${img_puntual}_img_externa`);
     var img_local_interna = document.getElementById(img_puntual);
 
-    block_none("none")
+    block_none("none");
 
     rotacion.value = "";
     alto.value = "";
@@ -110,11 +107,13 @@ var img_mayor_index;
 var num_mayor = 0;
 
 function z_index_puntos() {
-  num_mayor = 0
+  num_mayor = 0;
   for (let i = 0; i < total_de_capas.length; i++) {
-    var z_index = parseInt(document.getElementById(`${i}_img_externa`).style.zIndex)
+    var z_index = parseInt(
+      document.getElementById(`${i}_img_externa`).style.zIndex
+    );
     if (z_index >= num_mayor) {
-      num_mayor = z_index + 1
+      num_mayor = z_index + 1;
       img_mayor_index = num_mayor;
     }
   }
@@ -128,23 +127,35 @@ function vertices() {
   var left = img.style.left;
 
   return `<div class="alto_1" style="
-        left:${parseInt(left.replace("px", "")) + parseInt(ancho.replace("px", "")) / 2 - 5}px;
+        left:${parseInt(left.replace("px", "")) +
+          parseInt(ancho.replace("px", "")) / 2 -
+          5}px;
         top:${parseInt(top.replace("px", "")) - 5}px;
         z-index:${img_mayor_index}" id="al_1" draggable="true"></div>
 
         <div class="alto_2" style="
-        left:${parseInt(left.replace("px", "")) + parseInt(ancho.replace("px", "")) / 2 - 5}px;
-        top:${parseInt(top.replace("px", "")) + parseInt(alto.replace("px", "")) - 5}px;
+        left:${parseInt(left.replace("px", "")) +
+          parseInt(ancho.replace("px", "")) / 2 -
+          5}px;
+        top:${parseInt(top.replace("px", "")) +
+          parseInt(alto.replace("px", "")) -
+          5}px;
         z-index:${img_mayor_index}" id="al_2" draggable="true"></div>
 
         <div class="ancho_1" style="
-        top:${parseInt(top.replace("px", "")) + parseInt(alto.replace("px", "")) / 2 - 5}px;
+        top:${parseInt(top.replace("px", "")) +
+          parseInt(alto.replace("px", "")) / 2 -
+          5}px;
         left:${parseInt(left.replace("px", "")) - 5}px;
         z-index:${img_mayor_index}" id="an_1" draggable="true"></div>
 
         <div class="ancho_2" style="
-        top:${parseInt(top.replace("px", "")) + parseInt(alto.replace("px", "")) / 2 - 5}px;
-        left:${parseInt(left.replace("px", "")) + parseInt(ancho.replace("px", "")) - 5}px;
+        top:${parseInt(top.replace("px", "")) +
+          parseInt(alto.replace("px", "")) / 2 -
+          5}px;
+        left:${parseInt(left.replace("px", "")) +
+          parseInt(ancho.replace("px", "")) -
+          5}px;
         z-index:${img_mayor_index}" id="an_2" draggable="true"></div>`;
 }
 
@@ -163,7 +174,6 @@ var rotacion = document.getElementById("r"),
 var index_before;
 
 function watch(id) {
-
   //¿ if selected the same the it deleted
   // debugger
   lienzo_puntos = document.getElementById("puntos");
@@ -242,7 +252,7 @@ function watch(id) {
 
       z_index_puntos();
 
-      lienzo_puntos.innerHTML = vertices()
+      lienzo_puntos.innerHTML = vertices();
 
       id_seleccionador.style.display = "inline-block";
       tabla.style.display = "inline-block";
@@ -265,14 +275,14 @@ function watch(id) {
         // console.log("No, esta dentro");
       }
 
-      block_none("inline_block_2")
+      block_none("inline_block_2");
 
       for (let i = 0; i < 8; i++) {
         document.getElementById(`title_attribute${i}`).style.display = "inline";
       }
 
       rotacion.value = ((style_rotate = style_rotate.replace("rotateZ(", "")),
-        style_rotate.replace("deg)", ""));
+      style_rotate.replace("deg)", ""));
       alto.value = style_alto = style_alto.replace("px", "");
       ancho.value = style_ancho = style_ancho.replace("px", "");
       x.value = style_x = style_x.replace("px", "");
@@ -292,7 +302,7 @@ function watch(id) {
 
       z_index_puntos();
 
-      lienzo_puntos.innerHTML = vertices()
+      lienzo_puntos.innerHTML = vertices();
 
       document.getElementById(img_puntual).setAttribute("draggable", "true");
 
@@ -314,16 +324,14 @@ function watch(id) {
         // console.log("No, esta dentro");
       }
 
-
       block_none("inline_block");
-
 
       for (let i = 0; i < 8; i++) {
         document.getElementById(`title_attribute${i}`).style.display = "inline";
       }
 
       rotacion.value = ((style_rotate = style_rotate.replace("rotateZ(", "")),
-        style_rotate.replace("deg)", ""));
+      style_rotate.replace("deg)", ""));
       alto.value = style_alto = style_alto.replace("px", "");
       ancho.value = style_ancho = style_ancho.replace("px", "");
       x.value = style_x = style_x.replace("px", "");
@@ -372,14 +380,18 @@ function attr(value, id) {
       img.style.transform = `rotateZ(${value}deg)`;
       break;
     case "al":
-      if (document.getElementById("emparejar").className == "emparejar_activo") {
+      if (
+        document.getElementById("emparejar").className == "emparejar_activo"
+      ) {
         anterior_alto = parseInt(img.style.height.replace("px", ""));
 
         diferencia_alto = value - anterior_alto;
 
         img.style.height = `${value}px`;
 
-        img.style.width = `${(parseInt(document.getElementById("an").value) * value) / anterior_alto}px`;
+        img.style.width = `${(parseInt(document.getElementById("an").value) *
+          value) /
+          anterior_alto}px`;
 
         document.getElementById("an").value = parseInt(
           img.style.width.replace("px", "")
@@ -393,14 +405,18 @@ function attr(value, id) {
       break;
 
     case "an":
-      if (document.getElementById("emparejar").className == "emparejar_activo") {
+      if (
+        document.getElementById("emparejar").className == "emparejar_activo"
+      ) {
         anterior_ancho = parseInt(img.style.width.replace("px", ""));
 
         diferencia_ancho = value - anterior_ancho;
 
         img.style.width = `${value}px`;
 
-        img.style.height = `${(parseInt(document.getElementById("al").value) * value) / anterior_ancho}px`;
+        img.style.height = `${(parseInt(document.getElementById("al").value) *
+          value) /
+          anterior_ancho}px`;
 
         document.getElementById("al").value = parseInt(
           img.style.height.replace("px", "")
@@ -448,7 +464,7 @@ var init_pnt_x_2;
 var init_pnt_y_1;
 var init_pnt_y_2;
 
-document.addEventListener("dragstart", function (event) {
+document.addEventListener("dragstart", function(event) {
   switch (event.target.id) {
     case "al_1":
       console.log("Es el alto 1");
@@ -483,16 +499,16 @@ document.addEventListener("dragstart", function (event) {
     x = window.event.clientX;
     img_x = parseInt(
       document
-      .getElementById(`${event.target.id}_img_externa`)
-      .style.left.replace("px", "")
+        .getElementById(`${event.target.id}_img_externa`)
+        .style.left.replace("px", "")
     );
     resto_x = x - img_x;
 
     y = window.event.clientY;
     img_y = parseInt(
       document
-      .getElementById(`${event.target.id}_img_externa`)
-      .style.top.replace("px", "")
+        .getElementById(`${event.target.id}_img_externa`)
+        .style.top.replace("px", "")
     );
     resto_y = y - img_y;
 
@@ -500,7 +516,7 @@ document.addEventListener("dragstart", function (event) {
   }
 });
 
-document.addEventListener("dragend", function (event) {
+document.addEventListener("dragend", function(event) {
   var lienzo_puntos = document.getElementById("puntos");
   var img = document.getElementById(`${img_puntual}_img_externa`);
 
@@ -516,10 +532,10 @@ document.addEventListener("dragend", function (event) {
       lienzo_puntos.innerHTML = vertices();
     }
   } else {
-    var alto_input = document.getElementById("al")
-    var ancho_input = document.getElementById("an")
-    var x_input = document.getElementById("x")
-    var y_input = document.getElementById("y")
+    var alto_input = document.getElementById("al");
+    var ancho_input = document.getElementById("an");
+    var x_input = document.getElementById("x");
+    var y_input = document.getElementById("y");
 
     switch (event.target.id) {
       case "al_1":

@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="manifest" href="assets/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="assets/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <title>Animo</title>
 </head>
+
 <body>
     <div class="container" id="container">
 
@@ -18,14 +38,15 @@
         </div>
 
         <div class="panel" id="panel">
-            
+
             <table class="table" id="tabla" style="display:none;">
                 <tr>
                     <td>
                         <p class="name_attribute" style="display:none;" id="title_attribute0">Rotacion</p>
                     </td>
                     <td>
-                        <input id="r" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Rotacion">
+                        <input id="r" style="display:none;" class="input" type="number"
+                            onchange="attr(this.value, this.id)" value="" placeholder="Rotacion">
                     </td>
                 </tr>
                 <tr>
@@ -33,12 +54,14 @@
                         <p class="name_attribute" style="display:none;" id="title_attribute1">Alto</p>
                     </td>
                     <td>
-                        <input id="al" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Alto">
+                        <input id="al" style="display:none;" class="input" type="number"
+                            onchange="attr(this.value, this.id)" value="" placeholder="Alto">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <p onclick="emparejar_al_an()" id='emparejar' class="emparejar"><i class="fas fa-lock-open"></i></p>
+                        <p onclick="emparejar_al_an()" id='emparejar' class="emparejar"><i class="fas fa-lock-open"></i>
+                        </p>
                     </td>
                 </tr>
                 <tr>
@@ -46,7 +69,8 @@
                         <p class="name_attribute" style="display:none;" id="title_attribute2">Ancho</p>
                     </td>
                     <td>
-                        <input id="an" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Ancho">
+                        <input id="an" style="display:none;" class="input" type="number"
+                            onchange="attr(this.value, this.id)" value="" placeholder="Ancho">
                     </td>
                 </tr>
                 <tr>
@@ -54,7 +78,8 @@
                         <p class="name_attribute" style="display:none;" id="title_attribute3">X</p>
                     </td>
                     <td>
-                        <input id="x" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="X --">
+                        <input id="x" style="display:none;" class="input" type="number"
+                            onchange="attr(this.value, this.id)" value="" placeholder="X --">
                     </td>
                 </tr>
                 <tr>
@@ -62,7 +87,8 @@
                         <p class="name_attribute" style="display:none;" id="title_attribute4">Y</p>
                     </td>
                     <td>
-                        <input id="y" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Y |">
+                        <input id="y" style="display:none;" class="input" type="number"
+                            onchange="attr(this.value, this.id)" value="" placeholder="Y |">
                     </td>
                 </tr>
                 <tr>
@@ -70,7 +96,8 @@
                         <p class="name_attribute" style="display:none;" id="title_attribute5">Opacidad</p>
                     </td>
                     <td>
-                        <input id="o" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Opacidad">
+                        <input id="o" style="display:none;" class="input" type="number"
+                            onchange="attr(this.value, this.id)" value="" placeholder="Opacidad">
                     </td>
                 </tr>
                 <tr>
@@ -78,7 +105,8 @@
                         <p class="name_attribute" style="display:none;" id="title_attribute6">Z-index</p>
                     </td>
                     <td>
-                        <input id="z" style="display:none;" class="input" type="number" onchange="attr(this.value, this.id)" value="" placeholder="Z-index">
+                        <input id="z" style="display:none;" class="input" type="number"
+                            onchange="attr(this.value, this.id)" value="" placeholder="Z-index">
                     </td>
                 </tr>
                 <tr>
@@ -86,12 +114,13 @@
                         <p class="name_attribute" style="display:none;" id="title_attribute7">Id de imagen</p>
                     </td>
                     <td>
-                        <input type="number" id="id_imagen" class="input" style="display:none;" placeholder="Id de la imagen" value="" onchange="change_id(this.value)"  name="" id="">
+                        <input type="number" id="id_imagen" class="input" style="display:none;"
+                            placeholder="Id de la imagen" value="" onchange="change_id(this.value)" name="" id="">
 
                     </td>
                 </tr>
             </table>
-            
+
             <label id="#bb"> Subir archivo
                 <input class="subir_imagen" type="file" id="file" accept="image/*" onchange="mostrar()" />
             </label>
@@ -100,6 +129,7 @@
 
         </div>
     </div>
-<script src="main.js"></script>
+    <script src="main.js"></script>
 </body>
+
 </html>

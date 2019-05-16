@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/loscarepapa/animo#readme",
   "devDependencies": {
+    "browser-sync": "^2.26.5",
     "gulp": "^4.0.2",
     "gulp-stylus": "^2.7.0"
   }
