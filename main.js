@@ -1,5 +1,5 @@
 var lienzo = document.getElementById("lienzo");
-var lienzo_puntos = document.getElementById("puntos");
+var lienzo_puntos;
 var total_imagenes = 0;
 var total_de_capas = [];
 var num_atributos_de_imagenes = [];
@@ -20,7 +20,7 @@ function block_none(style) {
     id_seleccionador.style.display = "none";
     tabla.style.display = "none";
 
-  } else if ("inline_block") {
+  } else if (style == "inline_block") {
     rotacion.style.display = "inline-block";
     alto.style.display = "inline-block";
     ancho.style.display = "inline-block";
@@ -31,7 +31,7 @@ function block_none(style) {
     id_seleccionador.style.display = "inline-block";
     tabla.style.display = "inline-block";
 
-  } else if ("inline_block_2") {
+  } else if (style == "inline_block_2") {
     rotacion.style.display = "inline-block";
     alto.style.display = "inline-block";
     ancho.style.display = "inline-block";
@@ -106,7 +106,13 @@ function mostrar() {
   //*
 }
 
-function vertices(alto, ancho, top, left) {
+function vertices() {
+  var img = document.getElementById(`${img_puntual}_img_externa`);
+  var alto = img.style.height;
+  var ancho = img.style.width;
+  var top = img.style.top;
+  var left = img.style.left;
+
   return `<div class="alto_1" style="
         left:${parseInt(left.replace("px", "")) + parseInt(ancho.replace("px", "")) / 2 - 5}px;
         top:${parseInt(top.replace("px", "")) - 5}px" id="al_1" draggable="true"></div>
@@ -139,9 +145,10 @@ var rotacion = document.getElementById("r"),
 var index_before;
 
 function watch(id) {
+
   //¿ if selected the same the it deleted
   // debugger
-  var lienzo_puntos = document.getElementById("puntos");
+  lienzo_puntos = document.getElementById("puntos");
 
   if (id == img_puntual) {
     console.log("Es el mismo");
@@ -215,17 +222,7 @@ function watch(id) {
 
       img_watch_externa.className = "img_watch";
 
-      var alto_local = img_watch_externa.style.height;
-      var ancho_local = img_watch_externa.style.width;
-      var top_local = img_watch_externa.style.top;
-      var left_local = img_watch_externa.style.left;
-
-      lienzo_puntos.innerHTML = vertices(
-        alto_local,
-        ancho_local,
-        top_local,
-        left_local
-      );
+      lienzo_puntos.innerHTML = vertices()
 
       id_seleccionador.style.display = "inline-block";
       tabla.style.display = "inline-block";
@@ -273,12 +270,7 @@ function watch(id) {
 
       index_before = img_watch_externa.style.zIndex;
 
-      lienzo_puntos.innerHTML = vertices(
-        style_alto,
-        style_ancho,
-        style_y,
-        style_x
-      );
+      lienzo_puntos.innerHTML = vertices()
 
       document.getElementById(img_puntual).setAttribute("draggable", "true");
 
@@ -344,12 +336,7 @@ var zindex_img = [];
 function attr(value, id) {
   // debugger
   var img = document.getElementById(`${img_puntual}_img_externa`);
-  var alto = img.style.height;
-  var ancho = img.style.width;
-  var top = img.style.top;
-  var left = img.style.left;
-
-
+  
   switch (id) {
     case "x":
       img.style.left = `${value}px`;
@@ -359,7 +346,7 @@ function attr(value, id) {
       img.style.top = `${value}px`;
       break;
 
-    case "r":
+      case "r":
       img.style.transform = `rotateZ(${value}deg)`;
       break;
     case "al":
@@ -371,7 +358,7 @@ function attr(value, id) {
         diferencia_alto = value - anterior_alto;
 
         img.style.height = `${value}px`;
-
+        
         img.style.width = `${(parseInt(document.getElementById("an").value) *
         value) /
         anterior_alto}px`;
@@ -385,7 +372,6 @@ function attr(value, id) {
         img.style.height = `${value}px`;
       }
 
-      lienzo_puntos.innerHTML = vertices(alto, ancho, top, left);
       break;
 
     case "an":
@@ -423,6 +409,7 @@ function attr(value, id) {
     default:
       break;
   }
+  lienzo_puntos.innerHTML = vertices();
 }
 
 //¿System of a drag
@@ -510,18 +497,9 @@ document.addEventListener("dragend", function (event) {
       x.value = parseInt(img_press.style.left.replace("px", ""));
       y.value = parseInt(img_press.style.top.replace("px", ""));
 
-      var alto = img_press.style.height;
-      var ancho = img_press.style.width;
-      var top = img_press.style.top;
-      var left = img_press.style.left;
-
-      lienzo_puntos.innerHTML = vertices(alto, ancho, top, left);
+      lienzo_puntos.innerHTML = vertices();
     }
   } else {
-    var alto = img.style.height;
-    var ancho = img.style.width;
-    var top = img.style.top;
-    var left = img.style.left;
     var alto_input = document.getElementById("al")
     var ancho_input = document.getElementById("an")
     var x_input = document.getElementById("x")
@@ -554,12 +532,7 @@ document.addEventListener("dragend", function (event) {
           x_input.value = parseInt(img.style.left.replace("px", ""));
           y_input.value = parseInt(img.style.top.replace("px", ""));
 
-          lienzo_puntos.innerHTML = vertices(
-            img.style.height,
-            img.style.width,
-            img.style.top,
-            img.style.left
-          );
+          lienzo_puntos.innerHTML = vertices();
         } else {
           var alto_img = parseInt(img.style.height.replace("px", ""));
           var top_img = parseInt(img.style.top.replace("px", ""));
@@ -571,12 +544,7 @@ document.addEventListener("dragend", function (event) {
           alto_input.value = parseInt(img.style.height.replace("px", ""));
           y_input.value = parseInt(img.style.top.replace("px", ""));
 
-          lienzo_puntos.innerHTML = vertices(
-            img.style.height,
-            img.style.width,
-            img.style.top,
-            img.style.left
-          );
+          lienzo_puntos.innerHTML = vertices();
         }
 
         break;
@@ -600,12 +568,7 @@ document.addEventListener("dragend", function (event) {
           x_input.value = parseInt(img.style.left.replace("px", ""));
           y_input.value = parseInt(img.style.top.replace("px", ""));
 
-          lienzo_puntos.innerHTML = vertices(
-            img.style.height,
-            img.style.width,
-            img.style.top,
-            img.style.left
-          );
+          lienzo_puntos.innerHTML = vertices();
         } else {
           var alto_img = parseInt(img.style.height.replace("px", ""));
           img.style.height = `${alto_img +
@@ -613,12 +576,7 @@ document.addEventListener("dragend", function (event) {
 
           alto_input.value = parseInt(img.style.height.replace("px", ""));
 
-          lienzo_puntos.innerHTML = vertices(
-            img.style.height,
-            img.style.width,
-            img.style.top,
-            img.style.left
-          );
+          lienzo_puntos.innerHTML = vertices();
         }
 
         break;
@@ -648,12 +606,7 @@ document.addEventListener("dragend", function (event) {
           x_input.value = parseInt(img.style.left.replace("px", ""));
           y_input.value = parseInt(img.style.top.replace("px", ""));
 
-          lienzo_puntos.innerHTML = vertices(
-            img.style.height,
-            img.style.width,
-            img.style.top,
-            img.style.left
-          );
+          lienzo_puntos.innerHTML = vertices();
         } else {
           var ancho_img = parseInt(img.style.width.replace("px", ""));
           var left_img = parseInt(img.style.left.replace("px", ""));
@@ -667,12 +620,7 @@ document.addEventListener("dragend", function (event) {
 
           console.log(parseInt(img.style.height.replace("px", "")), img);
 
-          lienzo_puntos.innerHTML = vertices(
-            img.style.height,
-            img.style.width,
-            img.style.top,
-            img.style.left
-          );
+          lienzo_puntos.innerHTML = vertices();
         }
 
         break;
@@ -695,12 +643,7 @@ document.addEventListener("dragend", function (event) {
           x_input.value = parseInt(img.style.left.replace("px", ""));
           y_input.value = parseInt(img.style.top.replace("px", ""));
 
-          lienzo_puntos.innerHTML = vertices(
-            img.style.height,
-            img.style.width,
-            img.style.top,
-            img.style.left
-          );
+          lienzo_puntos.innerHTML = vertices();
         } else {
           var ancho_img = parseInt(img.style.width.replace("px", ""));
           img.style.width = `${ancho_img +
@@ -709,12 +652,7 @@ document.addEventListener("dragend", function (event) {
           ancho_input.value = parseInt(img.style.height.replace("px", ""));
           y_input.value = parseInt(img.style.top.replace("px", ""));
 
-          lienzo_puntos.innerHTML = vertices(
-            img.style.height,
-            img.style.width,
-            img.style.top,
-            img.style.left
-          );
+          lienzo_puntos.innerHTML = vertices();
         }
         break;
 
