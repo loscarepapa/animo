@@ -41,17 +41,21 @@
             <div class="contenedor_panel">
                 <div class="columna">
                     <ul>
-                        <li><i class="fas fa-layer-group btn_off" onclick="panel_attribute(this.id)" id="capa" ></i></li>
-                        <li><i class="fas fa-upload btn_off" onclick="panel_attribute(this.id)" id="subir" ></i></li>
-                        <li><i class="fas fa-palette btn_off" onclick="panel_attribute(this.id)" id="atributos" ></i></li>
-                        <li><i class="fas fa-draw-polygon btn_off" onclick="panel_attribute(this.id)" id="animar" ></i></li>
-                        <li><i class="fas fa-trash-alt red_icon btn_off" onclick="panel_attribute(this.id)" id="basura" ></i></li>
+                        <li onclick="panel_attribute(this.id)" id="capa" class="btn_off"><i class="fas fa-layer-group"></i></li>
+                        <li onclick="panel_attribute(this.id)" id="subir" class="btn_off"><i class="fas fa-upload"></i></li>
+                        <li onclick="panel_attribute(this.id)" id="atributos" class="btn_off"><i class="fas fa-palette"></i></li>
+                        <li onclick="panel_attribute(this.id)" id="animar" class="btn_off"><i class="fas fa-draw-polygon"></i></li>
+                        <li onclick="panel_attribute(this.id)" id="basura" class="btn_off"><i class="fas fa-trash-alt red_icon"></i></li>
                     </ul>
                 </div>
 
                 <div class="panel_interno">
                     <div id="panel_capas"class="none">
-                        <p>Capas</p>
+                        <div class="capas">
+                            <ul id="capas">
+                                
+                            </ul>
+                        </div>
                     </div>
 
                     <div id="panel_atributos" class="none">
@@ -92,19 +96,15 @@
                             <tr>
                                 <td>
                                     <p class="name_attribute" style="display:none;" id="title_attribute3">X</p>
-                                </td>
-                                <td>
+                                    <br>
                                     <input id="x" style="display:none;" class="input" type="number"
                                         onchange="attr(this.value, this.id)" value="" placeholder="X --">
                                 </td>
-                            </tr>
-                            <tr>
                                 <td>
                                     <p class="name_attribute" style="display:none;" id="title_attribute4">Y</p>
-                                </td>
-                                <td>
+                                    <br>
                                     <input id="y" style="display:none;" class="input" type="number"
-                                        onchange="attr(this.value, this.id)" value="" placeholder="Y |">
+                                    onchange="attr(this.value, this.id)" value="" placeholder="Y |">
                                 </td>
                             </tr>
                             <tr>
@@ -127,7 +127,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <p class="name_attribute" style="display:none;" id="title_attribute7">Id de imagen</p>
+                                    <p class="name_attribute" style="display:none;" id="title_attribute7">Id</p>
                                 </td>
                                 <td>
                                     <input type="number" id="id_imagen" class="input" style="display:none;"

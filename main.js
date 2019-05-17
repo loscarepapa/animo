@@ -1,4 +1,5 @@
 var lienzo = document.getElementById("lienzo");
+var capas = document.getElementById("capas")
 var lienzo_puntos;
 var total_imagenes = 0;
 var total_de_capas = [];
@@ -49,13 +50,20 @@ function mostrar() {
     reader.onloadend = function () {
       lienzo.innerHTML += `
         <div class="img" id="${total_imagenes}_img_externa" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};' draggeble='false'>
-          <img src="${
-            reader.result
-          }" id="${total_imagenes}" class="img_interna"  onclick='watch(this.id)' draggable='false'>
+          <img src="${reader.result}" id="${total_imagenes}" class="img_interna"  onclick='watch(this.id)' draggable='false'>
         </div>`;
       z_index++;
       total_de_capas[total_imagenes] = total_imagenes;
+
+      capas.innerHTML += `
+      <li class="capa_img_off" id="${total_imagenes}_capa" onclick="watch(this.id.replace('_capa', ''))">
+        <img src="${reader.result}" class="img_capa">
+      </li>`
+
       total_imagenes++;
+
+
+
     };
   } else {
     console.log("Hubo un error");
@@ -127,35 +135,23 @@ function vertices() {
   var left = img.style.left;
 
   return `<div class="alto_1" style="
-        left:${parseInt(left.replace("px", "")) +
-          parseInt(ancho.replace("px", "")) / 2 -
-          5}px;
+        left:${parseInt(left.replace("px", "")) + parseInt(ancho.replace("px", "")) / 2 - 5}px;
         top:${parseInt(top.replace("px", "")) - 5}px;
         z-index:${img_mayor_index}" id="al_1" draggable="true"></div>
 
         <div class="alto_2" style="
-        left:${parseInt(left.replace("px", "")) +
-          parseInt(ancho.replace("px", "")) / 2 -
-          5}px;
-        top:${parseInt(top.replace("px", "")) +
-          parseInt(alto.replace("px", "")) -
-          5}px;
+        left:${parseInt(left.replace("px", "")) + parseInt(ancho.replace("px", "")) / 2 - 5}px;
+        top:${parseInt(top.replace("px", "")) + parseInt(alto.replace("px", "")) - 5}px;
         z-index:${img_mayor_index}" id="al_2" draggable="true"></div>
 
         <div class="ancho_1" style="
-        top:${parseInt(top.replace("px", "")) +
-          parseInt(alto.replace("px", "")) / 2 -
-          5}px;
+        top:${parseInt(top.replace("px", "")) + parseInt(alto.replace("px", "")) / 2 - 5}px;
         left:${parseInt(left.replace("px", "")) - 5}px;
         z-index:${img_mayor_index}" id="an_1" draggable="true"></div>
 
         <div class="ancho_2" style="
-        top:${parseInt(top.replace("px", "")) +
-          parseInt(alto.replace("px", "")) / 2 -
-          5}px;
-        left:${parseInt(left.replace("px", "")) +
-          parseInt(ancho.replace("px", "")) -
-          5}px;
+        top:${parseInt(top.replace("px", "")) + parseInt(alto.replace("px", "")) / 2 - 5}px;
+        left:${parseInt(left.replace("px", "")) + parseInt(ancho.replace("px", "")) - 5}px;
         z-index:${img_mayor_index}" id="an_2" draggable="true"></div>`;
 }
 
@@ -182,6 +178,8 @@ function watch(id) {
     console.log("Es el mismo");
     var img = document.getElementById(`${img_puntual}_img_externa`);
     document.getElementById(`${id}`).setAttribute("draggable", "false");
+    document.getElementById(`${img_puntual}_capa`).className = "capa_img_off"
+
     img.className = "img";
     // img.style.zIndex = index_before;
     index_before = "";
@@ -236,6 +234,8 @@ function watch(id) {
       console.log(index_before);
 
       document.getElementById(img_puntual).setAttribute("draggable", "false");
+      document.getElementById(`${img_puntual}_capa`).className = "capa_img_off"
+
 
       //! before of this id for delete the image previous and after is for add to the new image
       img_puntual = img_watch_externa.id.replace("_img_externa", "");
@@ -247,6 +247,8 @@ function watch(id) {
       );
 
       img_puntual_img.setAttribute("draggable", "true");
+      document.getElementById(`${img_puntual}_capa`).className = "capa_img_on"
+
 
       img_watch_externa.className = "img_watch";
 
@@ -297,6 +299,7 @@ function watch(id) {
 
       img_puntual = img_watch_externa.id.replace("_img_externa", "");
       document.getElementById(img_watch_externa.id).className = "img_watch";
+      document.getElementById(`${img_puntual}_capa`).className = "capa_img_on"
 
       index_before = img_watch_externa.style.zIndex;
 
@@ -548,16 +551,11 @@ document.addEventListener("dragend", function (event) {
           var top_img = parseInt(img.style.top.replace("px", ""));
           var left_img = parseInt(img.style.left.replace("px", ""));
 
-          img.style.height = `${alto_img +
-            (init_pnt_y_1 - window.event.clientY)}px`;
-          img.style.top = `${top_img -
-            (init_pnt_y_1 - window.event.clientY)}px`;
+          img.style.height = `${alto_img + (init_pnt_y_1 - window.event.clientY)}px`;
+          img.style.top = `${top_img - (init_pnt_y_1 - window.event.clientY)}px`;
 
-          img.style.width = `${(ancho_img *
-            parseInt(img.style.height.replace("px", ""))) /
-            alto_img}px`;
-          img.style.left = `${left_img -
-            (parseInt(img.style.width.replace("px", "")) - ancho_img)}px`;
+          img.style.width = `${(ancho_img * parseInt(img.style.height.replace("px", ""))) / alto_img}px`;
+          img.style.left = `${left_img - (parseInt(img.style.width.replace("px", "")) - ancho_img)}px`;
 
           alto_input.value = parseInt(img.style.height.replace("px", ""));
           ancho_input.value = parseInt(img.style.width.replace("px", ""));
@@ -622,16 +620,11 @@ document.addEventListener("dragend", function (event) {
           var ancho_img = parseInt(img.style.width.replace("px", ""));
           var left_img = parseInt(img.style.left.replace("px", ""));
 
-          img.style.width = `${ancho_img +
-            (init_pnt_x_2 - window.event.clientX)}px`;
-          img.style.left = `${left_img -
-            (init_pnt_x_2 - window.event.clientX)}px`;
+          img.style.width = `${ancho_img + (init_pnt_x_2 - window.event.clientX)}px`;
+          img.style.left = `${left_img - (init_pnt_x_2 - window.event.clientX)}px`;
 
-          img.style.height = `${(alto_img *
-            parseInt(img.style.width.replace("px", ""))) /
-            ancho_img}px`;
-          img.style.top = `${top_img -
-            (parseInt(img.style.height.replace("px", "")) - alto_img)}px`;
+          img.style.height = `${(alto_img * parseInt(img.style.width.replace("px", ""))) / ancho_img}px`;
+          img.style.top = `${top_img - (parseInt(img.style.height.replace("px", "")) - alto_img)}px`;
 
           alto_input.value = parseInt(img.style.height.replace("px", ""));
           ancho_input.value = parseInt(img.style.width.replace("px", ""));
@@ -642,10 +635,8 @@ document.addEventListener("dragend", function (event) {
         } else {
           var ancho_img = parseInt(img.style.width.replace("px", ""));
           var left_img = parseInt(img.style.left.replace("px", ""));
-          img.style.width = `${ancho_img +
-            (init_pnt_x_2 - window.event.clientX)}px`;
-          img.style.left = `${left_img -
-            (init_pnt_x_2 - window.event.clientX)}px`;
+          img.style.width = `${ancho_img + (init_pnt_x_2 - window.event.clientX)}px`;
+          img.style.left = `${left_img - (init_pnt_x_2 - window.event.clientX)}px`;
 
           ancho_input.value = parseInt(img.style.width.replace("px", ""));
           x_input.value = parseInt(img.style.left.replace("px", ""));
@@ -748,20 +739,41 @@ function borrar_al_an() {
 
 var btn_anterior, panel_anterior;
 
-function btn_switch(id, panel){
+function btn_switch(id, panel) {
   if (btn_anterior) {
-        document.getElementById(panel_anterior).className = "none";
-        document.getElementById(`${btn_anterior}`).className = document.getElementById(`${btn_anterior}`).className.replace("btn_on", "btn_off");
-        btn_anterior = id
-        panel_anterior = panel
-        document.getElementById(panel).className = "block"
-      } else {
-        btn_anterior = id
-        panel_anterior = panel
-      }
-      document.getElementById(id).className = document.getElementById(id).className.replace("btn_off", "btn_on");
-      document.getElementById(panel).className = "block"
+    document.getElementById(panel_anterior).className = "none";
+    document.getElementById(`${btn_anterior}`).className = document.getElementById(`${btn_anterior}`).className.replace("btn_on", "btn_off");
+    btn_anterior = id
+    panel_anterior = panel
+    document.getElementById(panel).className = "block"
+  } else {
+    btn_anterior = id
+    panel_anterior = panel
+  }
+  document.getElementById(id).className = document.getElementById(id).className.replace("btn_off", "btn_on");
+  document.getElementById(panel).className = "block"
 }
+
+document.addEventListener("keyup", (key) => {
+console.log(key.key)
+switch (key.key) {
+  case "f":
+    panel_attribute("capa")
+    break;
+  case "d":
+    panel_attribute("subir")
+    break;
+  case "s":
+    panel_attribute("atributos")
+    break;
+  case "a":
+    panel_attribute("animar")
+    break;
+
+  default:
+    break;
+}
+})
 
 function panel_attribute(id) {
   // debugger
