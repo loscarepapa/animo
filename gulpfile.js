@@ -10,10 +10,6 @@ function css(){
     .pipe(dest('css'))
     .pipe(browserSync.stream())
 }
-// function assets(){
-//     return src('assets/*')
-//     .pipe(dest('public'))
-// }
 function browser(){
     return browserSync.init({
         server:{
@@ -24,12 +20,11 @@ function browser(){
 }
 
 exports.css = css
-// exports.assets = assets
 exports.browser = browser
 
 exports.default = function () {
     watch('main.styl',css)
-    // watch('assets',assets)
     watch('main.js').on('change', browserSync.reload)
+    watch('index.html').on('change', browserSync.reload)
     browser();
 }

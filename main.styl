@@ -8,6 +8,13 @@
     -webkit-user-select none
     -ms-user-select none
 
+.none
+    display none
+
+.block
+    display block
+    color #fff
+
 .container 
     background-color #232323
     width 100%
@@ -25,13 +32,21 @@
 
 .panel 
     background-color #333
-    width 400px
+    width 415px
     margin 5px 15px 0px 0px
     height 500px
     position absolute
     right 0px
 
+.contenedor_panel
+    width 415px
+    height 500px
+    position absolute
 
+.panel_interno
+    width 355px
+    height 500px
+    position absolute
 .time_line 
     background-color #333
     position absolute
@@ -70,7 +85,7 @@
     border none
     padding 1px 10px
     border-radius 5px
-    margin px
+    margin 10px
     width 50px
     right 0px
 
@@ -84,17 +99,16 @@
 
 label 
     padding 5px 10px
-    background rgb(158, 158, 158)
+    background #212121
     font-family Verdana, Geneva, Tahoma, sans-serif
     display table
     cursor pointer
-    border-radius 3px
-    margin 10px 0px 5px 40px
+    border-radius 50px
+    // margin 10px 0px 5px 40px
+    position absolute 
+    bottom 10px
+    left 10px
     color rgb(255, 255, 255)
-    -webkit-user-select none
-    -moz-user-select none
-    -khtml-user-select none
-    -ms-user-select none
 
 input[type="file"] 
     display none
@@ -151,3 +165,26 @@ input[type="file"]
 
 .imagenes_puntos
     background-color red
+
+.columna
+ width 45px
+ height 100%
+ background #2d2d2d
+ position absolute
+ right 0px
+
+.btn_off
+    color #ccc
+
+ul
+    list-style none
+    font-size 20px
+    li
+        margin 15px 0px 10px 15px
+        cursor pointer
+
+.red_icon
+    color #ff3232
+
+.btn_on
+    color #fff

@@ -46,7 +46,7 @@ function mostrar() {
   var reader = new FileReader();
   if (file) {
     reader.readAsDataURL(archivo);
-    reader.onloadend = function() {
+    reader.onloadend = function () {
       lienzo.innerHTML += `
         <div class="img" id="${total_imagenes}_img_externa" style='left:0px;top:0px;transform:rotateZ(0deg);width:100px;height:100px;opacity:1;z-index:${z_index};' draggeble='false'>
           <img src="${
@@ -282,7 +282,7 @@ function watch(id) {
       }
 
       rotacion.value = ((style_rotate = style_rotate.replace("rotateZ(", "")),
-      style_rotate.replace("deg)", ""));
+        style_rotate.replace("deg)", ""));
       alto.value = style_alto = style_alto.replace("px", "");
       ancho.value = style_ancho = style_ancho.replace("px", "");
       x.value = style_x = style_x.replace("px", "");
@@ -331,7 +331,7 @@ function watch(id) {
       }
 
       rotacion.value = ((style_rotate = style_rotate.replace("rotateZ(", "")),
-      style_rotate.replace("deg)", ""));
+        style_rotate.replace("deg)", ""));
       alto.value = style_alto = style_alto.replace("px", "");
       ancho.value = style_ancho = style_ancho.replace("px", "");
       x.value = style_x = style_x.replace("px", "");
@@ -464,7 +464,7 @@ var init_pnt_x_2;
 var init_pnt_y_1;
 var init_pnt_y_2;
 
-document.addEventListener("dragstart", function(event) {
+document.addEventListener("dragstart", function (event) {
   switch (event.target.id) {
     case "al_1":
       console.log("Es el alto 1");
@@ -499,16 +499,16 @@ document.addEventListener("dragstart", function(event) {
     x = window.event.clientX;
     img_x = parseInt(
       document
-        .getElementById(`${event.target.id}_img_externa`)
-        .style.left.replace("px", "")
+      .getElementById(`${event.target.id}_img_externa`)
+      .style.left.replace("px", "")
     );
     resto_x = x - img_x;
 
     y = window.event.clientY;
     img_y = parseInt(
       document
-        .getElementById(`${event.target.id}_img_externa`)
-        .style.top.replace("px", "")
+      .getElementById(`${event.target.id}_img_externa`)
+      .style.top.replace("px", "")
     );
     resto_y = y - img_y;
 
@@ -516,7 +516,7 @@ document.addEventListener("dragstart", function(event) {
   }
 });
 
-document.addEventListener("dragend", function(event) {
+document.addEventListener("dragend", function (event) {
   var lienzo_puntos = document.getElementById("puntos");
   var img = document.getElementById(`${img_puntual}_img_externa`);
 
@@ -744,4 +744,57 @@ function borrar_al_an() {
     // console.log("Esta dentro del array");
   }
   //   console.log("Borrar del array");
+}
+
+var btn_anterior, panel_anterior;
+
+function btn_switch(id, panel){
+  if (btn_anterior) {
+        document.getElementById(panel_anterior).className = "none";
+        document.getElementById(`${btn_anterior}`).className = document.getElementById(`${btn_anterior}`).className.replace("btn_on", "btn_off");
+        btn_anterior = id
+        panel_anterior = panel
+        document.getElementById(panel).className = "block"
+      } else {
+        btn_anterior = id
+        panel_anterior = panel
+      }
+      document.getElementById(id).className = document.getElementById(id).className.replace("btn_off", "btn_on");
+      document.getElementById(panel).className = "block"
+}
+
+function panel_attribute(id) {
+  // debugger
+  switch (id) {
+    case "capa":
+      console.log("capa")
+      btn_switch(id, "panel_capas")
+      break;
+
+    case "subir":
+      console.log("subir")
+      btn_switch(id, "panel_subir")
+      break;
+
+    case "atributos":
+      console.log("atributos")
+      btn_switch(id, "panel_atributos")
+      break;
+
+    case "animar":
+      console.log("animar")
+      btn_switch(id, "panel_animar")
+      break;
+
+    case "basura":
+      console.log("basura")
+      btn_switch(id, "panel_basura")
+      break;
+
+    default:
+      break;
+  }
+
+  // document.getElementById(id).className = document.getElementById(id).className.replace("btn_off","btn_on")  
+  // console.log(document.getElementById(id).className)
 }
