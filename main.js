@@ -56,9 +56,12 @@ function mostrar() {
       total_de_capas[total_imagenes] = total_imagenes;
 
       capas.innerHTML += `
-      <li class="capa_img_off" id="${total_imagenes}_capa" onclick="watch(this.id.replace('_capa', ''))">
+      <li class="capa_img_off" id="${total_imagenes}_capa" onclick="watch(this.id.replace('_capa', ''))" draggable="true">
         <img src="${reader.result}" class="img_capa">
-      </li>`
+      </li>
+      <li id="insertar_capa_${total_imagenes + 2}" class="droptarget"></li>
+      <li id="capa${total_imagenes + 2}"></li>
+      `;
 
       total_imagenes++;
 
@@ -105,6 +108,8 @@ function mostrar() {
         `${zindex_modificado_id[i]}_img_externa`
       ).style.zIndex = zindex_img[i];
     }
+    
+    document.getElementById(`${img_puntual}_capa`).className = "capa_img_off"
 
     img_puntual = null;
   }
@@ -467,6 +472,8 @@ var init_pnt_x_2;
 var init_pnt_y_1;
 var init_pnt_y_2;
 
+var img_capa_boolean = false;
+
 document.addEventListener("dragstart", function (event) {
   switch (event.target.id) {
     case "al_1":
@@ -498,6 +505,14 @@ document.addEventListener("dragstart", function (event) {
   var x, y;
   var img_x, img_y;
 
+  if(event.target.className === "capa_img_off" || event.target.className === "capa_img_on"){
+    puntos = true
+    img_capa_boolean = true;
+    event.dataTransfer.setData("img", event.target.id);
+  }else{
+    img_capa_boolean = false;
+  }
+
   if (puntos == false) {
     x = window.event.clientX;
     img_x = parseInt(
@@ -517,6 +532,7 @@ document.addEventListener("dragstart", function (event) {
 
     img_press = document.getElementById(`${event.target.id}_img_externa`);
   }
+  console.log(img_capa_boolean)
 });
 
 document.addEventListener("dragend", function (event) {
@@ -683,6 +699,12 @@ document.addEventListener("dragend", function (event) {
         break;
     }
   }
+  if (event.target.className === "capa_img_off" || event.target.className === "capa_img_on") {
+    img_capa_boolean = true;
+  }else{
+    img_capa_boolean = false;
+  }
+  console.log(img_capa_boolean)
 });
 //¿
 
@@ -807,6 +829,33 @@ function panel_attribute(id) {
       break;
   }
 
-  // document.getElementById(id).className = document.getElementById(id).className.replace("btn_off","btn_on")  
-  // console.log(document.getElementById(id).className)
 }
+
+document.addEventListener("dragenter", function(event) {
+  if (img_capa_boolean != false) {
+    if (event.target.className == "droptarget") {
+      event.target.style.backgroundColor = "#1e90ff";
+    }
+  }
+});
+
+document.addEventListener("dragover", function(event) {
+  event.preventDefault();
+});
+
+document.addEventListener("dragleave", function(event) {
+  if (event.target.className == "droptarget") {
+    event.target.style.backgroundColor = "";
+  }
+});
+
+document.addEventListener("drop", function(event) {
+  event.preventDefault();
+  if (event.target.className == "droptarget") {
+    var data = event.dataTransfer.getData("img");
+    console.log(data)
+    document.getElementById(`capa${event.target.id.replace("insertar_capa_", "")}`).appendChild(document.getElementById(data)) 
+    console.log(document.getElementById(`capa${event.target.id.replace("insertar_capa_", "")}`))
+    
+  }
+});
