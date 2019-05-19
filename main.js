@@ -58,15 +58,13 @@ function mostrar() {
       z_index++;
       total_de_capas[total_imagenes] = total_imagenes;
 
-      document.getElementById(`capa${total_imagenes}`).innerHTML += `
-      <div class="capa_img_off" id="${total_imagenes}_capa" onclick="watch(this.id.replace('_capa', ''))" draggable="true">
-        <img src="${reader.result}" class="img_capa">
-      </div>`;
-
       capas.innerHTML += `
-      <li id="insertar_capa_${total_imagenes + 1}" class="droptarget"></li>
-      <li id="capa${total_imagenes + 1}"></li>
-      `;
+      <li id="insertar_capa_${total_imagenes}" class="droptarget"></li>
+          <li id="capa${total_imagenes}">
+              <div class="capa_img_off" id="${total_imagenes}_capa" onclick="watch(this.id.replace('_capa', ''))" draggable="true">
+                <img src="${reader.result}" class="img_capa">
+              </div>
+          </li>`;
 
       capas_imagenes[total_imagenes] = `${total_imagenes}_capa`
       capas_posicion[total_imagenes] = total_imagenes
@@ -879,6 +877,8 @@ function drop(event, id_droped) {
 
   for (let i = 0; i < capas_imagenes.length; i++) {
     document.getElementById(`capa${i}`).appendChild(document.getElementById(capas_imagenes[i]))
+    console.log(document.getElementById(`${capas_imagenes[i].replace("_capa", "")}_img_externa`))
+    document.getElementById(`${capas_imagenes[i].replace("_capa","")}_img_externa`).style.zIndex = i + 1
     
   }
 
