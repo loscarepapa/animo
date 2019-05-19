@@ -6,6 +6,9 @@ var total_de_capas = [];
 var num_atributos_de_imagenes = [];
 var atributos_de_imagenes = [];
 
+var capas_posicion = [];
+var capas_imagenes = [];
+
 var z_index = 1;
 
 function block_none(style) {
@@ -55,13 +58,19 @@ function mostrar() {
       z_index++;
       total_de_capas[total_imagenes] = total_imagenes;
 
-      capas.innerHTML += `
-      <li class="capa_img_off" id="${total_imagenes}_capa" onclick="watch(this.id.replace('_capa', ''))" draggable="true">
+      document.getElementById(`capa${total_imagenes}`).innerHTML += `
+      <div class="capa_img_off" id="${total_imagenes}_capa" onclick="watch(this.id.replace('_capa', ''))" draggable="true">
         <img src="${reader.result}" class="img_capa">
-      </li>
-      <li id="insertar_capa_${total_imagenes + 2}" class="droptarget"></li>
-      <li id="capa${total_imagenes + 2}"></li>
+      </div>`;
+
+      capas.innerHTML += `
+      <li id="insertar_capa_${total_imagenes + 1}" class="droptarget"></li>
+      <li id="capa${total_imagenes + 1}"></li>
       `;
+
+      capas_imagenes[total_imagenes] = `${total_imagenes}_capa`
+      capas_posicion[total_imagenes] = total_imagenes
+      console.log(capas_imagenes, capas_posicion)
 
       total_imagenes++;
 
@@ -108,7 +117,7 @@ function mostrar() {
         `${zindex_modificado_id[i]}_img_externa`
       ).style.zIndex = zindex_img[i];
     }
-    
+
     document.getElementById(`${img_puntual}_capa`).className = "capa_img_off"
 
     img_puntual = null;
@@ -505,11 +514,11 @@ document.addEventListener("dragstart", function (event) {
   var x, y;
   var img_x, img_y;
 
-  if(event.target.className === "capa_img_off" || event.target.className === "capa_img_on"){
+  if (event.target.className === "capa_img_off" || event.target.className === "capa_img_on") {
     puntos = true
     img_capa_boolean = true;
     event.dataTransfer.setData("img", event.target.id);
-  }else{
+  } else {
     img_capa_boolean = false;
   }
 
@@ -559,9 +568,7 @@ document.addEventListener("dragend", function (event) {
     switch (event.target.id) {
       case "al_1":
         console.log("Es el alto 1");
-        if (
-          document.getElementById("emparejar").className == "emparejar_activo"
-        ) {
+        if (document.getElementById("emparejar").className == "emparejar_activo") {
           var alto_img = parseInt(img.style.height.replace("px", ""));
           var ancho_img = parseInt(img.style.width.replace("px", ""));
           var top_img = parseInt(img.style.top.replace("px", ""));
@@ -597,9 +604,7 @@ document.addEventListener("dragend", function (event) {
       case "al_2":
         console.log("Es el alto 2");
         // debugger
-        if (
-          document.getElementById("emparejar").className == "emparejar_activo"
-        ) {
+        if (document.getElementById("emparejar").className == "emparejar_activo") {
           var alto_img = parseInt(img.style.height.replace("px", ""));
           var ancho_img = parseInt(img.style.width.replace("px", ""));
 
@@ -701,7 +706,7 @@ document.addEventListener("dragend", function (event) {
   }
   if (event.target.className === "capa_img_off" || event.target.className === "capa_img_on") {
     img_capa_boolean = true;
-  }else{
+  } else {
     img_capa_boolean = false;
   }
   console.log(img_capa_boolean)
@@ -777,51 +782,45 @@ function btn_switch(id, panel) {
 }
 
 document.addEventListener("keyup", (key) => {
-console.log(key.key)
-switch (key.key) {
-  case "f":
-    panel_attribute("capa")
-    break;
-  case "d":
-    panel_attribute("subir")
-    break;
-  case "s":
-    panel_attribute("atributos")
-    break;
-  case "a":
-    panel_attribute("animar")
-    break;
+  switch (key.key) {
+    case "f":
+      panel_attribute("capa")
+      break;
+    case "d":
+      panel_attribute("subir")
+      break;
+    case "s":
+      panel_attribute("atributos")
+      break;
+    case "a":
+      panel_attribute("animar")
+      break;
 
-  default:
-    break;
-}
+    default:
+      break;
+  }
 })
 
 function panel_attribute(id) {
   // debugger
   switch (id) {
     case "capa":
-      console.log("capa")
       btn_switch(id, "panel_capas")
       break;
 
     case "subir":
-      console.log("subir")
       btn_switch(id, "panel_subir")
       break;
 
     case "atributos":
-      console.log("atributos")
       btn_switch(id, "panel_atributos")
       break;
 
     case "animar":
-      console.log("animar")
       btn_switch(id, "panel_animar")
       break;
 
     case "basura":
-      console.log("basura")
       btn_switch(id, "panel_basura")
       break;
 
@@ -831,7 +830,7 @@ function panel_attribute(id) {
 
 }
 
-document.addEventListener("dragenter", function(event) {
+document.addEventListener("dragenter", function (event) {
   if (img_capa_boolean != false) {
     if (event.target.className == "droptarget") {
       event.target.style.backgroundColor = "#1e90ff";
@@ -839,23 +838,52 @@ document.addEventListener("dragenter", function(event) {
   }
 });
 
-document.addEventListener("dragover", function(event) {
+document.addEventListener("dragover", function (event) {
   event.preventDefault();
 });
 
-document.addEventListener("dragleave", function(event) {
+document.addEventListener("dragleave", function (event) {
   if (event.target.className == "droptarget") {
     event.target.style.backgroundColor = "";
   }
 });
 
-document.addEventListener("drop", function(event) {
+document.addEventListener("drop", function (event) {
   event.preventDefault();
   if (event.target.className == "droptarget") {
-    var data = event.dataTransfer.getData("img");
-    console.log(data)
-    document.getElementById(`capa${event.target.id.replace("insertar_capa_", "")}`).appendChild(document.getElementById(data)) 
-    console.log(document.getElementById(`capa${event.target.id.replace("insertar_capa_", "")}`))
-    
+    event.target.style.backgroundColor = "";
+    drop(event, event.target.id)
   }
 });
+
+function drop(event, id_droped) {
+  // debugger
+  var capa_translado = document.getElementById(id_droped)
+  console.log(capa_translado)//posicion a transladar
+  var data = event.dataTransfer.getData("img");
+  console.log(data)//capa a transladar
+
+  var index = capas_imagenes.indexOf(data);
+  // if (index > -1) {
+  //   capas_imagenes.splice(index, 1);
+  // }
+  console.log(index)
+
+  var imagen_anterior = capas_imagenes[parseInt(event.target.id.replace("insertar_capa_", ""))];
+  console.log(parseInt(event.target.id.replace("insertar_capa_", "")), imagen_anterior)
+  // capas_posicion[0];//posicion
+
+  capas_imagenes[capas_posicion[parseInt(event.target.id.replace("insertar_capa_", ""))]] = data;//id de la imagen
+  capas_imagenes[index] = imagen_anterior;//id de la imagen
+  console.log(capas_imagenes, capas_posicion)
+
+  for (let i = 0; i < capas_imagenes.length; i++) {
+    document.getElementById(`capa${i}`).appendChild(document.getElementById(capas_imagenes[i]))
+    
+  }
+
+  // console.log(capas_posicion[parseInt(event.target.id.replace("insertar_capa_", "")) - 1] - 1)
+
+  document.getElementById(`capa${event.target.id.replace("insertar_capa_", "")}`).appendChild(document.getElementById(data))
+  console.log(document.getElementById(`capa${event.target.id.replace("insertar_capa_", "")}`))
+}
