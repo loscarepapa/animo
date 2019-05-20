@@ -19,7 +19,7 @@ function block_none(style) {
     x.style.display = "none";
     y.style.display = "none";
     opacidad.style.display = "none";
-    zindex.style.display = "none";
+    // zindex.style.display = "none";
     id_seleccionador.value = "";
     id_seleccionador.style.display = "none";
     tabla.style.display = "none";
@@ -30,7 +30,7 @@ function block_none(style) {
     x.style.display = "inline-block";
     y.style.display = "inline-block";
     opacidad.style.display = "inline-block";
-    zindex.style.display = "inline-block";
+    // zindex.style.display = "inline-block";
     id_seleccionador.style.display = "inline-block";
     tabla.style.display = "inline-block";
   } else if (style == "inline_block_2") {
@@ -40,7 +40,7 @@ function block_none(style) {
     x.style.display = "inline-block";
     y.style.display = "inline-block";
     opacidad.style.display = "inline-block";
-    zindex.style.display = "inline-block";
+    // zindex.style.display = "inline-block";
   }
 }
 
@@ -62,7 +62,10 @@ function mostrar() {
       <li id="insertar_capa_${total_imagenes}" class="droptarget"></li>
           <li id="capa${total_imagenes}">
               <div class="capa_img_off" id="${total_imagenes}_capa" onclick="watch(this.id.replace('_capa', ''))" draggable="true">
-                <img src="${reader.result}" class="img_capa">
+                  <img src="${reader.result}" class="img_capa" draggable="false">
+                  <div class="contenido_capa">
+                      <p class="nombre_capa" id="nombre_capa_${total_imagenes}" ondblclick="cambiar_nombre(this.id)">Capa ${total_imagenes}</p>
+                  </div>
               </div>
           </li>`;
 
@@ -95,7 +98,7 @@ function mostrar() {
     opacidad.value = "";
     zindex.value = "";
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 7; i++) {
       document.getElementById(`title_attribute${i}`).style.display = "none";
     }
 
@@ -217,7 +220,7 @@ function watch(id) {
       .getElementById("emparejar")
       .setAttribute("onclick", "emparejar_al_an()");
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 7; i++) {
       document.getElementById(`title_attribute${i}`).style.display = "none";
     }
 
@@ -291,7 +294,7 @@ function watch(id) {
 
       block_none("inline_block_2");
 
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 7; i++) {
         document.getElementById(`title_attribute${i}`).style.display = "inline";
       }
 
@@ -341,7 +344,7 @@ function watch(id) {
 
       block_none("inline_block");
 
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 7; i++) {
         document.getElementById(`title_attribute${i}`).style.display = "inline";
       }
 
@@ -448,10 +451,10 @@ function attr(value, id) {
       img.style.opacity = value;
       break;
 
-    case "z":
-      img.style.zIndex = value;
-      z_index_puntos();
-      break;
+    // case "z":
+    //   img.style.zIndex = value;
+    //   z_index_puntos();
+    //   break;
 
     default:
       break;
@@ -547,7 +550,7 @@ document.addEventListener("dragend", function (event) {
   var img = document.getElementById(`${img_puntual}_img_externa`);
 
   if (puntos == false) {
-    if (img_press && img_press.className === "img_watch") {
+    if (img_press && img_press.className === "img_watch" && window.event.clientX <= 915 && window.event.clientY <= 505) {
       var lienzo_puntos = document.getElementById("puntos");
 
       img_press.style.left = `${window.event.clientX - resto_x}px`;
@@ -778,24 +781,26 @@ function btn_switch(id, panel) {
   document.getElementById(id).className = document.getElementById(id).className.replace("btn_off", "btn_on");
   document.getElementById(panel).className = "block"
 }
-
+var mientras_escribe = true
 document.addEventListener("keyup", (key) => {
-  switch (key.key) {
-    case "f":
-      panel_attribute("capa")
-      break;
-    case "d":
-      panel_attribute("subir")
-      break;
-    case "s":
-      panel_attribute("atributos")
-      break;
-    case "a":
-      panel_attribute("animar")
-      break;
-
-    default:
-      break;
+  if(mientras_escribe){
+    switch (key.key) {
+      case "f":
+        panel_attribute("capa")
+        break;
+      case "d":
+        panel_attribute("atributos")
+        break;
+      case "s":
+        panel_attribute("subir")
+        break;
+      case "a":
+        panel_attribute("animar")
+        break;
+  
+      default:
+        break;
+    }
   }
 })
 
@@ -832,6 +837,8 @@ document.addEventListener("dragenter", function (event) {
   if (img_capa_boolean != false) {
     if (event.target.className == "droptarget") {
       event.target.style.backgroundColor = "#1e90ff";
+      event.target.style.height = "15px";
+      event.target.style.marginTop = "-10px"
     }
   }
 });
@@ -843,6 +850,8 @@ document.addEventListener("dragover", function (event) {
 document.addEventListener("dragleave", function (event) {
   if (event.target.className == "droptarget") {
     event.target.style.backgroundColor = "";
+    event.target.style.height = "";
+    event.target.style.marginTop = ""
   }
 });
 
@@ -850,40 +859,49 @@ document.addEventListener("drop", function (event) {
   event.preventDefault();
   if (event.target.className == "droptarget") {
     event.target.style.backgroundColor = "";
+    event.target.style.height = "";
+    event.target.style.marginTop = ""
     drop(event, event.target.id)
   }
 });
 
 function drop(event, id_droped) {
-  // debugger
   var capa_translado = document.getElementById(id_droped)
-  console.log(capa_translado)//posicion a transladar
+  // console.log(capa_translado)//posicion a transladar
   var data = event.dataTransfer.getData("img");
-  console.log(data)//capa a transladar
+  // console.log(data)//capa a transladar
 
   var index = capas_imagenes.indexOf(data);
-  // if (index > -1) {
-  //   capas_imagenes.splice(index, 1);
-  // }
-  console.log(index)
 
   var imagen_anterior = capas_imagenes[parseInt(event.target.id.replace("insertar_capa_", ""))];
-  console.log(parseInt(event.target.id.replace("insertar_capa_", "")), imagen_anterior)
   // capas_posicion[0];//posicion
 
   capas_imagenes[capas_posicion[parseInt(event.target.id.replace("insertar_capa_", ""))]] = data;//id de la imagen
   capas_imagenes[index] = imagen_anterior;//id de la imagen
-  console.log(capas_imagenes, capas_posicion)
+  // console.log(capas_imagenes, capas_posicion)
 
   for (let i = 0; i < capas_imagenes.length; i++) {
     document.getElementById(`capa${i}`).appendChild(document.getElementById(capas_imagenes[i]))
-    console.log(document.getElementById(`${capas_imagenes[i].replace("_capa", "")}_img_externa`))
     document.getElementById(`${capas_imagenes[i].replace("_capa","")}_img_externa`).style.zIndex = i + 1
     
   }
-
-  // console.log(capas_posicion[parseInt(event.target.id.replace("insertar_capa_", "")) - 1] - 1)
-
   document.getElementById(`capa${event.target.id.replace("insertar_capa_", "")}`).appendChild(document.getElementById(data))
-  console.log(document.getElementById(`capa${event.target.id.replace("insertar_capa_", "")}`))
+}
+
+
+var capa_nombre_cambiar;
+function cambiar_nombre(id){
+  var nombre_anterior = document.getElementById(id).textContent
+  document.getElementById(id).innerHTML = `<input id="cambio_nombre" class="input_2" draggable="false" onblur="salir_nombre(this.id)" type="text" value="${nombre_anterior}">`
+  document.getElementById("cambio_nombre").focus()
+  capa_nombre_cambiar = document.getElementById(id)
+  mientras_escribe = false
+}
+function salir_nombre(id){
+  var nombre_cambiar = document.getElementById(id).value
+  console.log(nombre_cambiar)
+  capa_nombre_cambiar.innerHTML = nombre_cambiar;
+  capa_nombre_cambiar = null 
+  mientras_escribe = true
+
 }

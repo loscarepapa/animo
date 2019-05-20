@@ -1,6 +1,20 @@
 $color1 = #333
 $color2 = #2b2b2b
 $blanco = #fff
+
+::-webkit-scrollbar 
+    width 10px
+    height 0px
+
+::-webkit-scrollbar-track 
+    border-radius 10px
+    background-color #4f4f4f
+
+::-webkit-scrollbar-thumb 
+    border-radius 10px
+    background-color #3d3d3d
+
+
 * 
     margin 0
     padding 0
@@ -84,6 +98,13 @@ $blanco = #fff
     margin 5px 5px
     width 50px
     right 0px
+
+.input_2 
+    background-color $blanco
+    border none
+    padding 1px 3px
+    border-radius 5px
+    width 95px
 
 .table 
     background $color2
@@ -186,26 +207,26 @@ ul
 
 .capas
     background $color2
-    width 150px
-    height 98%
+    width 230px
+    height 92%
     position absolute
-    right 0px
-    margin 5px 5px
+    left 0px
+    margin 20px 20px
     overflow auto
 
 .capa_img_off
     background $color1
     transition all ease .2s
-    width 140px
+    width 210px
     height 70px
-    margin 0px 5px
+    margin 5px 5px
 
 .capa_img_on
     background #4f4f4f
     transition all ease .2s
-    width 140px
+    width 210px
     height 70px
-    margin 0px 5px
+    margin 5px 5px
 
 .img_capa
     width 60px
@@ -214,8 +235,21 @@ ul
     margin 5px
 
 .droptarget
-    // background #000
-    width 140px
+    width 180px
     height 4px
     margin-left 5px
-    margin-top 0px
+    margin-top -5px
+    position absolute
+    transition all ease .3s
+
+.contenido_capa
+    max-width 140px
+    min-width 140px
+    font-family Verdana, Geneva, Tahoma, sans-serif
+    font-size 15px
+    left 50px
+    top 10px
+    float right 
+    margin-top 10px
+    overflow hidden
+    white-space nowrap

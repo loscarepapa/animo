@@ -42,18 +42,17 @@
                 <div class="columna">
                     <ul>
                         <li onclick="panel_attribute(this.id)" id="capa" class="btn_off"><i class="fas fa-layer-group"></i></li>
-                        <li onclick="panel_attribute(this.id)" id="subir" class="btn_off"><i class="fas fa-upload"></i></li>
                         <li onclick="panel_attribute(this.id)" id="atributos" class="btn_off"><i class="fas fa-palette"></i></li>
+                        <li onclick="panel_attribute(this.id)" id="subir" class="btn_off"><i class="fas fa-upload"></i></li>
                         <li onclick="panel_attribute(this.id)" id="animar" class="btn_off"><i class="fas fa-draw-polygon"></i></li>
                         <li onclick="panel_attribute(this.id)" id="basura" class="btn_off"><i class="fas fa-trash-alt red_icon"></i></li>
                     </ul>
                 </div>
 
                 <div class="panel_interno">
-                    <div id="panel_capas" class="none">
+                    <div id="panel_capas"class="none">
                         <div class="capas">
                             <ul id="capas">
-                                
                             </ul>
                         </div>
                     </div>
@@ -118,23 +117,22 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <p class="name_attribute" style="display:none;" id="title_attribute6">Z-index</p>
-                                </td>
-                                <td>
-                                    <input id="z" style="display:none;" class="input" type="number"
-                                        onchange="attr(this.value, this.id)" value="" placeholder="Z-index">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p class="name_attribute" style="display:none;" id="title_attribute7">Id</p>
+                                    <p class="name_attribute" style="display:none;" id="title_attribute6">Id</p>
                                 </td>
                                 <td>
                                     <input type="number" id="id_imagen" class="input" style="display:none;"
                                         placeholder="Id de la imagen" value="" onchange="change_id(this.value)" name="" id="">
-        
-                                </td>
-                            </tr>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="name_attribute" style="display:none;" id="title_attribute7">Z-index</p>
+                                    </td>
+                                    <td>
+                                        <input id="z" style="display:none;" class="none" type="number" value="" placeholder="Z-index">
+                                    </td>
+                                </tr>
                         </table>
                     </div>
 
